@@ -11,4 +11,10 @@ class PlanningPokerController {
 
     render(template:'window/blank',plugin:'iceScrum-plugin-planning-poker' ,model:[id:id])
   }
+
+  def pushTest = {
+    render(status: 200, text: 'ok')
+    pushOthers "${params.product}-product"
+
+  }
 }
