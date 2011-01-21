@@ -27,6 +27,7 @@ class PlanningPokerController {
     def projectMembers = []
     Product project = Product.findById(params.product)
     projectMembers = project.getAllUsers()
+
     def suite = []
     if(project. planningPokerGameType == PlanningPokerGame.FIBO_SUITE)
          suite= PlanningPokerGame.getInteger(PlanningPokerGame.FIBO_SUITE)
