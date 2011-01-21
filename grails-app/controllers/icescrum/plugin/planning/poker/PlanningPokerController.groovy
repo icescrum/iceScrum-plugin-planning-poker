@@ -1,4 +1,4 @@
-/*import org.icescrum.components.UtilsWebComponents
+import org.icescrum.components.UtilsWebComponents
 import org.icescrum.core.domain.User
 import org.icescrum.core.domain.Task
 
@@ -10,7 +10,7 @@ import org.icescrum.plugins.chat.ChatConnection
 import org.icescrum.plugins.chat.ChatUtils
 import org.icescrum.core.support.ApplicationSupport
 
-import org.springframework.security.core.context.SecurityContextHolder as SCH     */
+import org.springframework.security.core.context.SecurityContextHolder as SCH
 
 
 class PlanningPokerController {
@@ -22,7 +22,7 @@ class PlanningPokerController {
   static window = [title:'is.ui.planningPoker',help:'is.ui.planningPoker.help',toolbar:true]
   def index = {
     plugin:'iceScrum-plugin-planning-poker'
-    /*
+
 
     def projectMembers = []
     Product project = Product.findById(params.product)
@@ -38,7 +38,7 @@ class PlanningPokerController {
             u:projectMembers,
             me: User.get(springSecurityService.principal.id),
             suite_fibo:suite,
-            id:id,])  */
+            id:id,])
   }
 
   def join = {
