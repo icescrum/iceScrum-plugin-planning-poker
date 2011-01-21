@@ -11,7 +11,7 @@
     <is:button
               name="pokerButton"
               type="submit"
-              url="[controller:'', action:'']"
+              url="[controller:'planningPoker', action:'']"
               value="${message(code:'is.yes')}"/>
     <is:button type="link" button="button-s button-s-black"
               value="${message(code: 'is.no')}"/>

@@ -13,11 +13,12 @@
   <g:set var="productOwner" value="${sec.access([expression:'productOwner()'], {true})}"/>
 
   <is:link controller="planningPoker"
-            action="pushTest"
+            rendered="${productOwner}"
+            action="start"
             update="window-content-planningPoker"
-            onSuccess="\$.icescrum.displayView('testPush')"
+            onSuccess="\$.icescrum.displayView('start')"
             remote="true"
-            value="push"/>
+            value="Demarrer la session"/>
 
 
   <jq:jquery>
@@ -28,7 +29,7 @@
     <is:renderNotice />
     <icep:notifications
           name="planningPokerWindow"
-          reload="[update:'#window-content-planningPoker',action:'pushTest',params:[product:params.product]]"
+          reload="[update:'#window-content-planningPoker',action:'join',params:[product:params.product]]"
           group="${params.product}-planningPoker"
           listenOn="#window-content-planningPoker"/>
   </jq:jquery>
