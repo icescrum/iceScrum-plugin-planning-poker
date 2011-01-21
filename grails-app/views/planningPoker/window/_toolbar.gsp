@@ -21,3 +21,16 @@
 - Damien vitrac (damien@oocube.com)
 - Manuarii Stein (manuarii.stein@icescrum.com)
 --}%
+   <g:set var="productOwner" value="${sec.access([expression:'productOwner()'], {true})}"/>
+
+  <is:iconButton
+          action="close"
+          icon="close"
+          rendered="${productOwner}"
+          id="${sprint.id}"
+          controller="${id}"
+          title="${message(code:'is.ui.planningPoker.toolbar.alt.close')}"
+          alt="${message(code:'is.ui.planningPoker.toolbar.alt.close')}"
+          update="window-content-${id}">
+    ${message(code: 'is.ui.planningPoker.toolbar.close')}
+  </is:iconButton>

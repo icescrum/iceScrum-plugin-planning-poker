@@ -19,7 +19,7 @@ class PlanningPokerController {
   static ui = true
   def springSecurityService
   static menuBar = [show:[visible:true,pos:0],title:'is.ui.planningPoker']
-  static window = [title:'is.ui.planningPoker',help:'is.ui.planningPoker.help',toolbar:false]
+  static window = [title:'is.ui.planningPoker',help:'is.ui.planningPoker.help',toolbar:true]
   def index = {
     plugin:'iceScrum-plugin-planning-poker'
 
@@ -32,6 +32,8 @@ class PlanningPokerController {
          suite= PlanningPokerGame.getInteger(PlanningPokerGame.FIBO_SUITE)
     else
          suite= PlanningPokerGame.getInteger(PlanningPokerGame.INTEGER_SUITE)
+
+
     render(template:'window/blank',plugin:'iceScrum-plugin-planning-poker' ,model:[
             u:projectMembers,
             me: User.get(springSecurityService.principal.id),
@@ -44,6 +46,9 @@ class PlanningPokerController {
     pushOthers "${params.product}-product"
 
   }
+
+
+  def close = { }
 
 
 
