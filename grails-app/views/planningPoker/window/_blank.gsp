@@ -1,3 +1,14 @@
+<g:set var="productOwner" value="${sec.access([expression:'productOwner()'], {true})}"/>
+
+  <is:link controller="planningPoker"
+            rendered="${productOwner}"
+            action="start"
+            update="window-content-planningPoker"
+            onSuccess="\$.icescrum.displayView('start')"
+            remote="true"
+            value="Demarrer la session"/>
+
+
 
 
 <ul id="planning-poker-members-list">
@@ -22,3 +33,16 @@
     </li>
   </g:each>
 </ul>
+
+<jq:jquery>
+    jQuery("#window-content-${id}").removeClass('window-content-toolbar');
+    if(!jQuery("#dropmenu").is(':visible')){
+      jQuery("#window-id-${id}").focus();
+    }
+    <is:renderNotice />
+    <icep:notifications
+          name="planningPokerWindow"
+          reload="[update:'#window-content-planningPoker',action:'join',params:[product:params.product]]"
+          group="${params.product}-planningPoker"
+          listenOn="#window-content-planningPoker"/>
+  </jq:jquery>
