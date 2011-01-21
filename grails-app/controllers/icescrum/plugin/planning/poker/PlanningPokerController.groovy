@@ -47,12 +47,11 @@ class PlanningPokerController {
   }
 
   def start = {
-    push  "${params.product}-planningPoker"
+    redirect(action: 'index', params:[product:params.product])
+    pushOthers  "${params.product}-planningPoker"
   }
 
-  def close = { }
-
-
-
-
+  def close = {}
 }
+
+
