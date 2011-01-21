@@ -1,10 +1,4 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: emotik
-  Date: 19/01/11
-  Time: 16:40
-  To change this template use File | Settings | File Templates.
---%>
+
 
 <ul id="planning-poker-members-list">
   <g:each in="${u}" var="user">
@@ -24,7 +18,7 @@
 <ul id="planning-poker-card-list">
   <g:each in="${suite_fibo}" var="n">
     <li style="display:inline-block;list-style:none;padding:0 5px 0 5px; text-align:center">
-      <div class="planning-poker-carte ui-corner-all" style="width:30px; margin:auto; border:1px silver solid; height:50px">${n}</div>
+      <div class="planning-poker-carte ui-corner-all" style="width:30px; margin:auto; font-size:1.5em; text-align:center; border:1px silver solid; height:50px">${n}</div>
     </li>
   </g:each>
 </ul>

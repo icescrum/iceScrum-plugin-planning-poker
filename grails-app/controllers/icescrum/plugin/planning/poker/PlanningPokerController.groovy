@@ -3,7 +3,7 @@ import org.icescrum.core.domain.User
 import org.icescrum.core.domain.Task
 
 import org.icescrum.core.domain.Product
-import grails.converters.JSON
+
 import org.icescrum.core.domain.Team
 import org.icescrum.core.domain.PlanningPokerGame
 import org.icescrum.plugins.chat.ChatConnection
@@ -17,7 +17,7 @@ class PlanningPokerController {
 
   static final id = 'planningPoker'
   static ui = true
-   def springSecurityService
+  def springSecurityService
   static menuBar = [show:[visible:true,pos:0],title:'is.ui.planningPoker']
   static window = [title:'is.ui.planningPoker',help:'is.ui.planningPoker.help',toolbar:false]
   def index = {
@@ -25,7 +25,7 @@ class PlanningPokerController {
 
 
     def projectMembers = []
-    Product project = (Product) Product.findById(params.product)
+    Product project = Product.findById(params.product)
     projectMembers = project.getAllUsers()
     def suite = []
     if(project. planningPokerGameType == PlanningPokerGame.FIBO_SUITE)
@@ -44,4 +44,8 @@ class PlanningPokerController {
     pushOthers "${params.product}-product"
 
   }
+
+
+
+
 }
