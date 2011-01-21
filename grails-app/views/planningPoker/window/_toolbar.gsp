@@ -27,7 +27,6 @@
           action="close"
           icon="close"
           rendered="${productOwner}"
-          id="${sprint.id}"
           controller="${id}"
           title="${message(code:'is.ui.planningPoker.toolbar.alt.close')}"
           alt="${message(code:'is.ui.planningPoker.toolbar.alt.close')}"
