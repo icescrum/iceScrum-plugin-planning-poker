@@ -1,15 +1,6 @@
-import org.icescrum.components.UtilsWebComponents
-import org.icescrum.core.domain.User
-import org.icescrum.core.domain.Task
-
-import org.icescrum.core.domain.Product
-
-import org.icescrum.core.domain.Team
 import org.icescrum.core.domain.PlanningPokerGame
-import org.icescrum.core.support.ApplicationSupport
-
-import org.springframework.security.core.context.SecurityContextHolder as SCH
-
+import org.icescrum.core.domain.Product
+import org.icescrum.core.domain.User
 
 class PlanningPokerController {
 
