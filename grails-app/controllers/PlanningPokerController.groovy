@@ -24,12 +24,14 @@ class PlanningPokerController {
   def springSecurityService
 
   def index = {
+
        render(template:'window/blank',plugin:'iceScrum-plugin-planning-poker' ,model:[
             id:id])
   }
 
   def join = {
-      render(view:"_request", model:[id:id, p:params])
+     flash.notice = [text: 'ouverture planning poker', type: 'notice']
+     render(view:"_request", model:[id:id, p:params])
   }
 
   def start = {
@@ -49,9 +51,7 @@ class PlanningPokerController {
 
     def stories= Story.findAllByBacklogAndState(currentProduct, Story.STATE_SUGGESTED,  [cache: true, sort: 'rank'])
 
-
-
-
+    pushOthers  "${params.product}-plugin-planning-poker"
 
     render(template:'window/planningPoker',plugin:'iceScrum-plugin-planning-poker' ,model:[
             u:projectMembers,
@@ -59,9 +59,6 @@ class PlanningPokerController {
             suite_fibo:suite,
             stories_l:stories,
             id:id,])
-    //test
-    if(params.u!=true)
-      pushOthers  "${params.product}-planningPoker"
   }
 
   def accept = {
@@ -79,10 +76,6 @@ class PlanningPokerController {
 
 
     def stories= Story.findAllByBacklogAndState(currentProduct, Story.STATE_SUGGESTED,  [cache: true, sort: 'rank'])
-
-
-
-
 
     render(view:'window/planningPoker',plugin:'iceScrum-plugin-planning-poker' ,model:[
             u:projectMembers,
