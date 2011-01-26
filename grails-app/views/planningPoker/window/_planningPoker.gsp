@@ -1,8 +1,8 @@
 <%--
   Created by IntelliJ IDEA.
-  User: pollo
-  Date: 21/01/11
-  Time: 14:32
+  User: pol
+  Date: 12/01/11
+  Time: 14:20
   To change this template use File | Settings | File Templates.
 --%>
   <g:set var="productOwner" value="${sec.access([expression:'productOwner()'], {true})}"/>

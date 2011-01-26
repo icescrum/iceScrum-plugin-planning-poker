@@ -1,4 +1,10 @@
-<g:set var="productOwner" value="${sec.access([expression:'productOwner()'], {true})}"/>
+<%--
+  Created by IntelliJ IDEA.
+  User: pol
+  Date: 12/01/11
+  Time: 14:20
+  To change this template use File | Settings | File Templates.
+--%><g:set var="productOwner" value="${sec.access([expression:'productOwner()'], {true})}"/>
 
   <is:link controller="planningPoker"
             rendered="${productOwner}"

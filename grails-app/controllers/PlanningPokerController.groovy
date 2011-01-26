@@ -59,6 +59,7 @@ class PlanningPokerController {
             suite_fibo:suite,
             stories_l:stories,
             id:id,])
+    //test
     if(params.u!=true)
       pushOthers  "${params.product}-planningPoker"
   }
