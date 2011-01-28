@@ -40,8 +40,23 @@ class PlanningPokerController {
 
     def currentProduct = Product.get(params.product)
 
+    // récupération de la liste des utilisateurs travaillant sur le projet
     projectMembers = currentProduct.getAllUsers()
+       // suppression de l'utilisateur courant de la liste
+    def pop=false
+    for(def i=0;i<projectMembers.size() && pop==false;i++){
+      if(projectMembers[i].id==springSecurityService.principal.id){
+        pop=true
+        projectMembers.remove(i)
+      }
+    }
 
+    // Recherche de la liste des stories estimées du projet
+    def storiesEstimees= Story.findAllByBacklogAndState(currentProduct, Story.STATE_ESTIMATED,  [cache: true, sort: 'rank'])
+
+
+
+    // liste des cartes selon parametres du projet
     def suite = []
     if(currentProduct. planningPokerGameType == PlanningPokerGame.FIBO_SUITE)
          suite= PlanningPokerGame.getInteger(PlanningPokerGame.FIBO_SUITE)
@@ -49,7 +64,6 @@ class PlanningPokerController {
          suite= PlanningPokerGame.getInteger(PlanningPokerGame.INTEGER_SUITE)
 
 
-    def stories= Story.findAllByBacklogAndState(currentProduct, Story.STATE_SUGGESTED,  [cache: true, sort: 'rank'])
 
     pushOthers  "${params.product}-plugin-planning-poker"
 
@@ -57,35 +71,10 @@ class PlanningPokerController {
             u:projectMembers,
             me: User.get(springSecurityService.principal.id),
             suite_fibo:suite,
-            stories_l:stories,
+            stories_e:storiesEstimees,
             id:id,])
   }
 
-  def accept = {
-    def projectMembers = []
-
-    def currentProduct = Product.get('1')
-
-    projectMembers = currentProduct.getAllUsers()
-
-    def suite = []
-    if(currentProduct. planningPokerGameType == PlanningPokerGame.FIBO_SUITE)
-         suite= PlanningPokerGame.getInteger(PlanningPokerGame.FIBO_SUITE)
-    else
-         suite= PlanningPokerGame.getInteger(PlanningPokerGame.INTEGER_SUITE)
-
-
-    def stories= Story.findAllByBacklogAndState(currentProduct, Story.STATE_SUGGESTED,  [cache: true, sort: 'rank'])
-
-    render(view:'window/planningPoker',plugin:'iceScrum-plugin-planning-poker' ,model:[
-            u:projectMembers,
-            me: User.get(springSecurityService.principal.id),
-            suite_fibo:suite,
-            stories_l:stories,
-            id:id,])
-
-
-  }
 
   def close = {}
 }

@@ -29,3 +29,9 @@
     </li>
   </g:each>
 </ul>
+
+
+<g:each in="stories_e" var="s" >
+
+
+</g:each>
