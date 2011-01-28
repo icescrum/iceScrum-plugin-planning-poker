@@ -31,7 +31,34 @@
 </ul>
 
 
-<g:each in="stories_e" var="s" >
+<g:each in="${stories_e}" var="story" >
 
+    <is:postit id="${story.id}"
+          miniId="${story.id}"
+          title="${story.name}"
+          attachment="${story.totalAttachments}"
+          styleClass="story type-story-${story.type}"
+          type="story"
+          typeNumber="${story.type}"
+          typeTitle="${is.bundleFromController(bundle:'typesBundle',value:story.type)}"
+          miniValue="${story.effort >= 0 ? story.effort :'?'}"
+          color="${story.feature?.color}"
+          stateText="${is.bundleFromController(bundle:'stateBundle',value:story.state)}"
+          controller="planningPoker"
+          comment="${story.totalComments >= 0 ? story.totalComments : ''}">
+    <is:truncated size="50" encodedHTML="true"><is:storyTemplate story="${story}" /></is:truncated>
+
+
+
+    <g:if test="${story.name?.length() > 17 || is.storyTemplate(story:story).length() > 50}">
+      <is:tooltipPostit
+              type="story"
+              id="${story.id}"
+              title="${story.name}"
+              text="${is.storyTemplate([story:story])} "
+              apiBeforeShow="if(\$('#dropmenu').is(':visible') || \$('#postit-select-suite').is(':visible')){return false;}"
+              container="\$('#window-content-${id}')"/>
+    </g:if>
+  </is:postit>
 
 </g:each>

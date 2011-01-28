@@ -20,6 +20,20 @@ class PlanningPokerController {
   static menuBar = [show:[visible:true,pos:0],title:'is.ui.planningPoker']
   static window = [title:'is.ui.planningPoker',help:'is.ui.planningPoker.help',toolbar:true]
 
+   static stateBundle = [
+          (Story.STATE_SUGGESTED):'is.story.state.suggested',
+          (Story.STATE_ACCEPTED):'is.story.state.accepted',
+          (Story.STATE_ESTIMATED):'is.story.state.estimated',
+          (Story.STATE_PLANNED):'is.story.state.planned',
+          (Story.STATE_INPROGRESS):'is.story.state.inprogress',
+          (Story.STATE_DONE):'is.story.state.done'
+  ]
+
+  static typesBundle = [
+          (Story.TYPE_USER_STORY): 'is.story.type.story',
+          (Story.TYPE_DEFECT): 'is.story.type.defect',
+          (Story.TYPE_TECHNICAL_STORY): 'is.story.type.technical'
+  ]
 
   def springSecurityService
 
@@ -37,7 +51,7 @@ class PlanningPokerController {
   def start = {
 
     def projectMembers = []
-
+     def storiesEstimees = []
     def currentProduct = Product.get(params.product)
 
     // récupération de la liste des utilisateurs travaillant sur le projet
@@ -52,7 +66,7 @@ class PlanningPokerController {
     }
 
     // Recherche de la liste des stories estimées du projet
-    def storiesEstimees= Story.findAllByBacklogAndState(currentProduct, Story.STATE_ESTIMATED,  [cache: true, sort: 'rank'])
+    storiesEstimees=Story.findAllByBacklogAndState(currentProduct, Story.STATE_ESTIMATED,  [cache: true, sort: 'rank'])
 
 
 
