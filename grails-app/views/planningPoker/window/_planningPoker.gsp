@@ -17,21 +17,23 @@
   </g:each>
 </ul>
 
-<div id="planning-poker-table" class="ui-corner-all" style="background-color:#2e8b57; width:90%; height:100px; margin:auto; border:3px #daa520 solid"></div>
+<div id="planning-poker-table" class="ui-corner-all" style="background-color:#2e8b57; width:90%; height:50px; margin:auto; border:3px #daa520 solid"></div>
 <div align="center"> <is:avatar userid="${me.id}" class="ico"/><br/>
         ${me.firstName} ${me.lastName}</div>
 
 
-<ul id="planning-poker-card-list">
+<ul id="planning-poker-card-list" style="margin:0; padding-bottom:0">
   <g:each in="${suite_fibo}" var="n">
     <li style="display:inline-block;list-style:none;padding:0 5px 0 5px; text-align:center">
-      <div class="planning-poker-carte ui-corner-all" style="width:30px; margin:auto; font-size:1.5em; text-align:center; border:1px silver solid; height:50px">${n}</div>
+      <div class="planning-poker-carte ui-corner-top" style="width:30px; margin:auto; font-size:1.4em; text-align:center; border:1px silver solid; height:25px; border-bottom:0">${n}</div>
     </li>
   </g:each>
 </ul>
 
-
+<div style="background-color:#F2F2F2;border-top:1px silver solid;">
+  <div style="width:5000px; overflow:auto">
 <g:each in="${stories_ne}" var="story">
+  <div style="float:left">
     <is:postit id="${story.id}"
           miniId="${story.id}"
           title="${story.name}"
@@ -59,11 +61,12 @@
               container="\$('#window-content-${id}')"/>
     </g:if>
   </is:postit>
+  </div>
 </g:each>
-
-
+ </div>
+<div style="width:5000px; overflow:auto">
 <g:each in="${stories_e}" var="story" >
-
+  <div style="float:left">
     <is:postit id="${story.id}"
           miniId="${story.id}"
           title="${story.name}"
@@ -91,5 +94,7 @@
               container="\$('#window-content-${id}')"/>
     </g:if>
   </is:postit>
-
+</div>
 </g:each>
+</div>
+</div>

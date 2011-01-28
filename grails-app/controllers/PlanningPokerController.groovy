@@ -82,7 +82,7 @@ class PlanningPokerController {
          suite= PlanningPokerGame.getInteger(PlanningPokerGame.INTEGER_SUITE)
 
 
-
+    //if(productOwner()==true)
     pushOthers  "${params.product}-plugin-planning-poker"
 
     render(template:'window/planningPoker',plugin:'iceScrum-plugin-planning-poker' ,model:[
