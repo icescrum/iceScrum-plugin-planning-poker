@@ -51,10 +51,12 @@ class PlanningPokerController {
   def start = {
 
     def projectMembers = []
-     def storiesEstimees = []
+    def storiesEstimees = []
+    def storiesNonEstimees = []
+
     def currentProduct = Product.get(params.product)
 
-    // rŽcupŽration de la liste des utilisateurs travaillant sur le projet
+    // rï¿½cupï¿½ration de la liste des utilisateurs travaillant sur le projet
     projectMembers = currentProduct.getAllUsers()
        // suppression de l'utilisateur courant de la liste
     def pop=false
@@ -65,9 +67,11 @@ class PlanningPokerController {
       }
     }
 
-    // Recherche de la liste des stories estimŽes du projet
+    // Recherche de la liste des stories estimï¿½es du projet
     storiesEstimees=Story.findAllByBacklogAndState(currentProduct, Story.STATE_ESTIMATED,  [cache: true, sort: 'rank'])
 
+    // Recherche de la liste des stories estimï¿½es du projet
+    storiesNonEstimees=Story.findAllByBacklogAndState(currentProduct, Story.STATE_ACCEPTED,  [cache: true, sort: 'rank'])
 
 
     // liste des cartes selon parametres du projet
@@ -86,6 +90,7 @@ class PlanningPokerController {
             me: User.get(springSecurityService.principal.id),
             suite_fibo:suite,
             stories_e:storiesEstimees,
+            stories_ne:storiesNonEstimees,
             id:id,])
   }
 
