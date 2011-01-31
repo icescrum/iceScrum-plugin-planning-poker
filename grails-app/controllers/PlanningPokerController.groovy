@@ -15,7 +15,7 @@ import org.springframework.security.core.context.SecurityContextHolder as SCH
 class PlanningPokerController {
 
   static ui = true
-  static final pluginName = 'ice-scrum-plugin-planning-poker'
+  static final pluginName = 'icescrum-plugin-planning-poker'
   static final id = 'planningPoker'
   static menuBar = [show:[visible:true,pos:0],title:'is.ui.planningPoker']
   static window = [title:'is.ui.planningPoker',help:'is.ui.planningPoker.help',toolbar:true]

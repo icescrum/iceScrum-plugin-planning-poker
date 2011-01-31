@@ -5,6 +5,14 @@
   Time: 14:20
   To change this template use File | Settings | File Templates.
 --%>
+
+<script type="text/javascript" src="${resource(plugin: 'icescrum-plugin-planning-poker', dir: '/js/jquery', file: 'jquery.icescrum.planningpoker.js')}"></script>
+
+
+
+
+
+
   <g:set var="productOwner" value="${sec.access([expression:'productOwner()'], {true})}"/>
 
 <ul id="planning-poker-members-list">
@@ -31,9 +39,9 @@
 </ul>
 
 <div style="background-color:#F2F2F2;border-top:1px silver solid;">
-  <div style="width:5000px; overflow:auto">
+  <div id="accepted-list" style="width:5000px; overflow:hidden" class="stories-list">
 <g:each in="${stories_ne}" var="story">
-  <div style="float:left">
+  <div style="float:left" class="accepted-list">
     <is:postit id="${story.id}"
           miniId="${story.id}"
           title="${story.name}"
@@ -64,7 +72,7 @@
   </div>
 </g:each>
  </div>
-<div style="width:5000px; overflow:auto">
+<div id="estimated-list" style="width:5000px; overflow:hidden" class="stories-list">
 <g:each in="${stories_e}" var="story" >
   <div style="float:left">
     <is:postit id="${story.id}"
@@ -98,3 +106,9 @@
 </g:each>
 </div>
 </div>
+
+
+<jq:jquery>
+  $('.stories-list').draggable({ axis: 'x',
+                                 drag: function(event, ui) { console.log(event);}});
+</jq:jquery>
