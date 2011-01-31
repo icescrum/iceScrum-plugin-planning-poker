@@ -1,6 +1,6 @@
-class IceScrumPluginPlanningPokerGrailsPlugin {
+class IcescrumPluginPlanningPokerGrailsPlugin {
     // the plugin version
-    def version = "1.0-R3#1"
+    def version = "0.1"
     // the version or versions of Grails the plugin is designed for
     def grailsVersion = "1.3.6 > *"
     // the other plugins this plugin depends on
@@ -21,7 +21,7 @@ Brief description of the plugin.
 '''
 
     // URL to the plugin's documentation
-    def documentation = "http://grails.org/plugin/ice-scrum-plugin-planning-poker"
+    def documentation = "http://grails.org/plugin/icescrum-plugin-planning-poker"
 
     def doWithWebDescriptor = { xml ->
         // TODO Implement additions to web.xml (optional), this event occurs before 

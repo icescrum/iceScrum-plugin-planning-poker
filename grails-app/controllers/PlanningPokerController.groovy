@@ -39,7 +39,7 @@ class PlanningPokerController {
 
   def index = {
 
-       render(template:'window/blank',plugin:'iceScrum-plugin-planning-poker' ,model:[
+       render(template:'window/blank',plugin:pluginName ,model:[
             id:id])
   }
 
@@ -67,10 +67,10 @@ class PlanningPokerController {
       }
     }
 
-    // Recherche de la liste des stories estim�es du projet
+    // Recherche de la liste des stories estimees du projet
     storiesEstimees=Story.findAllByBacklogAndState(currentProduct, Story.STATE_ESTIMATED,  [cache: true, sort: 'rank'])
 
-    // Recherche de la liste des stories estim�es du projet
+    // Recherche de la liste des stories estimees du projet
     storiesNonEstimees=Story.findAllByBacklogAndState(currentProduct, Story.STATE_ACCEPTED,  [cache: true, sort: 'rank'])
 
 
@@ -85,7 +85,7 @@ class PlanningPokerController {
     //if(productOwner()==true)
     pushOthers  "${params.product}-plugin-planning-poker"
 
-    render(template:'window/planningPoker',plugin:'iceScrum-plugin-planning-poker' ,model:[
+    render(template:'window/planningPoker',plugin:pluginName ,model:[
             u:projectMembers,
             me: User.get(springSecurityService.principal.id),
             suite_fibo:suite,

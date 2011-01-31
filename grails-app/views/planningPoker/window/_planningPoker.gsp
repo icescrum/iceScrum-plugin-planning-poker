@@ -1,19 +1,6 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: pol
-  Date: 12/01/11
-  Time: 14:20
-  To change this template use File | Settings | File Templates.
---%>
+<r:use module="planningPoker"/>
 
-<script type="text/javascript" src="${resource(plugin: 'icescrum-plugin-planning-poker', dir: '/js/jquery', file: 'jquery.icescrum.planningpoker.js')}"></script>
-
-
-
-
-
-
-  <g:set var="productOwner" value="${sec.access([expression:'productOwner()'], {true})}"/>
+<g:set var="productOwner" value="${sec.access([expression:'productOwner()'], {true})}"/>
 
 <ul id="planning-poker-members-list">
   <g:each in="${u}" var="user">
