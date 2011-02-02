@@ -3,6 +3,7 @@
 <g:set var="productOwner" value="${sec.access([expression:'productOwner()'], {true})}"/>
 
 <div id="jeu">
+
 <ul id="planning-poker-members-list">
   <g:each in="${u}" var="user">
     <li>
@@ -19,6 +20,9 @@
 
 
 <ul id="planning-poker-card-list">
+  <li>
+      <div class="planning-poker-carte ui-corner-top me">?</div>
+    </li>
   <g:each in="${suite_fibo}" var="n">
     <li>
       <div class="planning-poker-carte ui-corner-top me">${n}</div>
@@ -27,7 +31,7 @@
 </ul>
 </div>
 <div id="stories">
-  <div id="accepted-list" style="width:5000px; overflow:hidden" class="stories-list">
+  <div id="accepted-list" style=" overflow:hidden" class="stories-list">
 <g:each in="${stories_ne}" var="story">
   <div style="float:left" class="accepted-list">
     <is:postit id="${story.id}"
@@ -75,6 +79,7 @@
           color="${story.feature?.color}"
           stateText="${is.bundleFromController(bundle:'stateBundle',value:story.state)}"
           controller="planningPoker"
+          dblclickable='[selector:".postit", callback:is.quickLook(params:"\"story.id=\"+obj.attr(\"elemId\")")]'
           comment="${story.totalComments >= 0 ? story.totalComments : ''}">
     <is:truncated size="50" encodedHTML="true"><is:storyTemplate story="${story}" /></is:truncated>
 
@@ -96,7 +101,3 @@
 </div>
 
 
-<jq:jquery>
-  $('.stories-list').draggable({ axis: 'x',
-                                 drag: function(event, ui) { console.log(event);}});
-</jq:jquery>
