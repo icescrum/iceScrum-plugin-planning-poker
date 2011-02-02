@@ -2,7 +2,62 @@
     display:inline;
 
 }
-#planning-poker-members-list{
+#planning-poker-members-list li{
+    display:inline-block;
     list-style:none;
+    padding:0 5px 0 5px;
+    text-align:center
 
+}
+
+.planning-poker-carte{
+    width:50%;
+    margin:auto;
+    border:1px silver solid;
+    height:50px
+}
+
+.planning-poker-carte.me{
+    width:30px;
+    font-size:1.4em;
+    text-align:center;
+    height:25px;
+    border-bottom:0;
+}
+
+.planning-poker-carte.me:hover{
+    -moz-transition: heigth 1s linear;
+    -webkit-transition: heigth 1s linear;
+    heigth:35px;
+}
+
+#planning-poker-table{
+    background-color:#2e8b57;
+    width:90%;
+    height:50px;
+    margin:auto;
+    border:3px #daa520 solid
+}
+
+#planning-poker-card-list{
+    position:absolute ;
+    heigth:40px;
+    bottom:0;
+    margin:0;
+    padding-bottom:0
+}
+
+#planning-poker-card-list li{
+    display:inline-block;
+    list-style:none;
+    padding:0 5px 0 5px;
+    text-align:center
+}
+
+#stories{
+    background-color:#F2F2F2;
+    border-top:1px silver solid;
+}
+#jeu{
+    position:relative
 }
