@@ -23,12 +23,13 @@
     text-align:center;
     height:25px;
     border-bottom:0;
+    cursor:pointer;
 }
 
 .planning-poker-carte.me:hover{
-    -moz-transition: heigth 1s linear;
-    -webkit-transition: heigth 1s linear;
-    heigth:35px;
+    -moz-transition: height 1s linear;
+    -webkit-transition: height 1s linear;
+    height:35px;
 }
 
 #planning-poker-table{
@@ -38,10 +39,17 @@
     margin:auto;
     border:3px #daa520 solid
 }
+#classtable{
+    height: 100%;
+}
+.planning-poker-card{
+    vertical-align:bottom;
+    width: 40px;
+}
 
 #planning-poker-card-list{
     position:absolute ;
-    heigth:40px;
+    height:40px;
     bottom:0;
     margin:0;
     padding-bottom:0

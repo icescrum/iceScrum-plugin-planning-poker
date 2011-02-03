@@ -19,16 +19,18 @@
         ${me.firstName} ${me.lastName}</div>
 
 
-<ul id="planning-poker-card-list">
-  <li>
-      <div class="planning-poker-carte ui-corner-top me">?</div>
-    </li>
-  <g:each in="${suite_fibo}" var="n">
-    <li>
-      <div class="planning-poker-carte ui-corner-top me">${n}</div>
-    </li>
-  </g:each>
-</ul>
+<table id="planning-poker-card-list">
+  <tr>
+    <td class="planning-poker-card">
+      <div class="planning-poker-carte ui-corner-top me"> ?</div>
+    </td>
+    <g:each in="${suite_fibo}" var="n">
+      <td class="planning-poker-card">
+        <div class="planning-poker-carte ui-corner-top me">${n}        </div>
+      </td>
+    </g:each>
+  </tr>
+</table>
 </div>
 <div id="stories">
   <div id="accepted-list" style=" overflow:hidden" class="stories-list">
