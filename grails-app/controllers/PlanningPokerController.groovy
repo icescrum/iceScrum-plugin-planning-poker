@@ -9,6 +9,7 @@ import org.icescrum.core.domain.PlanningPokerGame
 import org.icescrum.core.support.ApplicationSupport
 import org.icescrum.core.domain.Story
 
+import grails.plugins.springsecurity.Secured
 import org.springframework.security.core.context.SecurityContextHolder as SCH
 
 
@@ -44,11 +45,17 @@ class PlanningPokerController {
   }
 
   def join = {
-     flash.notice = [text: 'ouverture planning poker', type: 'notice']
-     render(view:"_request", model:[id:id, p:params])
+    redirect(action: 'display', params:[product:params.product])
   }
 
+  @Secured('scrumMaster()')
   def start = {
+
+    pushOthers  "${params.product}-plugin-planning-poker"
+    redirect(action: 'display', params:[product:params.product])
+  }
+
+  def display = {
 
     def projectMembers = []
     def storiesEstimees = []
@@ -81,9 +88,6 @@ class PlanningPokerController {
     else
          suite= PlanningPokerGame.getInteger(PlanningPokerGame.INTEGER_SUITE)
 
-
-    //if(productOwner()==true)
-    pushOthers  "${params.product}-plugin-planning-poker"
 
     render(template:'window/planningPoker',plugin:pluginName ,model:[
             u:projectMembers,

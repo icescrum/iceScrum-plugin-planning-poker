@@ -4,10 +4,10 @@
   Date: 12/01/11
   Time: 14:20
   To change this template use File | Settings | File Templates.
---%><g:set var="productOwner" value="${sec.access([expression:'productOwner()'], {true})}"/>
+--%><g:set var="scrumMaster" value="${sec.access([expression:'scrumMaster()'], {true})}"/>
 
   <is:link controller="planningPoker"
-            rendered="${productOwner}"
+            rendered="${scrumMaster}"
             action="start"
             update="window-content-planningPoker"
             onSuccess="\$.icescrum.displayView('start')"
