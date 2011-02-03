@@ -33,6 +33,7 @@
 </table>
 </div>
 <div id="stories">
+  <p><g:message code="is.ui.planningPoker.accepted"/> :</p>
   <div id="accepted-list" style=" overflow:hidden" class="stories-list">
 <g:each in="${stories_ne}" var="story">
   <div style="float:left" class="accepted-list">
@@ -66,7 +67,8 @@
   </div>
 </g:each>
  </div>
-<div id="estimated-list" style="width:5000px; overflow:hidden" class="stories-list">
+<p><g:message code="is.ui.planningPoker.estimated"/> :</p>
+<div id="estimated-list" style=" overflow:hidden" class="stories-list">
 <g:each in="${stories_e}" var="story" >
   <div style="float:left">
     <is:postit id="${story.id}"
@@ -103,3 +105,15 @@
 </div>
 
 
+<jq:jquery>
+var postitWidth = $('#accepted-list .postit-story').width();
+var windowWidth = $('.window-content').width();
+
+$('#accepted-list').css({width: postitWidth * $('#accepted-list .postit-story').size() });
+$('#estimated-list').css({width: postitWidth * $('#estimated-list .postit-story').size() });
+
+$('#accepted-list').scrollbar({contentWidth:windowWidth, position:'bottom'});
+$('#estimated-list').scrollbar({contentWidth:windowWidth, position:'bottom'});
+
+
+</jq:jquery>

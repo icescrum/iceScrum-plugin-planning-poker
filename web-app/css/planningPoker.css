@@ -69,3 +69,11 @@
 #jeu{
     position:relative
 }
+
+#stories>p{
+    padding-left: 10px;
+    padding-bottom:0;
+    color: #777777;
+    font-size: 11px;
+    line-height: 17px;
+}
