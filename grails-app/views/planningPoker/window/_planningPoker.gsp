@@ -58,7 +58,7 @@
       <is:tooltipPostit
               type="story"
               id="${story.id}"
-              title="${story.name}"
+              title="${story.name?.encodeAsHTML()}"
               text="${is.storyTemplate([story:story])} "
               apiBeforeShow="if(\$('#dropmenu').is(':visible') || \$('#postit-select-suite').is(':visible')){return false;}"
               container="\$('#window-content-${id}')"/>
@@ -93,7 +93,7 @@
       <is:tooltipPostit
               type="story"
               id="${story.id}"
-              title="${story.name}"
+              title="${story.name?.encodeAsHTML()}"
               text="${is.storyTemplate([story:story])} "
               apiBeforeShow="if(\$('#dropmenu').is(':visible') || \$('#postit-select-suite').is(':visible')){return false;}"
               container="\$('#window-content-${id}')"/>
