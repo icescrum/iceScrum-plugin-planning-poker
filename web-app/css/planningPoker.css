@@ -27,8 +27,6 @@
 }
 
 .planning-poker-carte.me:hover{
-    -moz-transition: height 1s linear;
-    -webkit-transition: height 1s linear;
     height:35px;
 }
 
