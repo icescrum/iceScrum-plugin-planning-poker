@@ -12,7 +12,7 @@
             update="window-content-planningPoker"
             onSuccess="\$.icescrum.displayView('start')"
             remote="true"
-            value="Demarrer la session"/>
+            value="${message(code:'is.ui.planningPoker.start')}"/>
 
 
 
