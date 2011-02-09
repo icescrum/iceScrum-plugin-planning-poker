@@ -75,3 +75,9 @@
     font-size: 11px;
     line-height: 17px;
 }
+
+.right {
+	position:absolute;
+    right:0;
+    top:0;
+}

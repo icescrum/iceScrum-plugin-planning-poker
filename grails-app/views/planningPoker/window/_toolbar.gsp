@@ -5,6 +5,7 @@
   Time: 14:20
   To change this template use File | Settings | File Templates.
 --%>
+<div class="right">
 <is:iconButton
           action="close"
           icon="close"
@@ -15,3 +16,4 @@
           update="window-content-${id}">
 ${message(code:'is.ui.planningPoker.toolbar.alt.close')}
 </is:iconButton>
+</div>
