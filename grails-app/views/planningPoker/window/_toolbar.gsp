@@ -13,5 +13,5 @@
           title="${message(code:'is.ui.planningPoker.toolbar.alt.close')}"
           alt="${message(code:'is.ui.planningPoker.toolbar.alt.close')}"
           update="window-content-${id}">
-Close
+${message(code:'is.ui.planningPoker.toolbar.alt.close')}
 </is:iconButton>
