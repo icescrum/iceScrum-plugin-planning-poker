@@ -1,5 +1,24 @@
 (function($){
 
+    $.icescrum.planningpoker = ({
+
+        defaults:{
+
+            i18n:{
+                newPlanningSession:'New planning poker session',
+                join:'Join'
+            }
+        },
+
+        o:{},
+
+        forPlanningTest:function(){
+            jQuery.icescrum.renderNotice("New Planning Poker session "+
+                    "<a href=\"javascript:;\" disabled=\"true\" onClick=\"jQuery.icescrum.openWindow(\'planningPoker/display\')\">" +
+                    "<button>Join</button>" +
+                    "</a>","notice");
+        }
+    });
     $.widget("ui.planningpoker", {
 	    options: {
             id: null,
