@@ -14,7 +14,7 @@
           history="false"
           title="${message(code:'is.ui.planningPoker.toolbar.alt.close')}"
           alt="${message(code:'is.ui.planningPoker.toolbar.alt.close')}"
-          onSuccess="jQuery.icescrum.openWindow('project')">
+          onSuccess="jQuery.icescrum.planningpoker.closePlanningPoker()">
 ${message(code:'is.ui.planningPoker.toolbar.alt.close')}
 </is:iconButton>
 </div>

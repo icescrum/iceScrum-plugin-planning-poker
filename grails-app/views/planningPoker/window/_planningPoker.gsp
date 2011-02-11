@@ -132,5 +132,16 @@ $(this).addClass("selected ui-corner-all").siblings().removeClass("selected ui-c
 });
    $("#accepted-list .accepted-list").dblclick(function() {
    alert("TODO quickloock")  ;
-});
+ });
+
+   jQuery("#window-content-${id}").removeClass('window-content-toolbar');
+  if(!jQuery("#dropmenu").is(':visible')){
+    jQuery("#window-id-${id}").focus();
+  }
+  <is:renderNotice />
+  <icep:notifications
+        name="planningPokerWindow"
+        callback="jQuery.icescrum.planningpoker.closePlanningPoker();"
+        group="${params.product}-planningPoker-close"
+        listenOn="#window-content-planningPoker"/>
 </jq:jquery>

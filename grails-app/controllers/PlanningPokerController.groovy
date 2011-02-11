@@ -101,8 +101,8 @@ class PlanningPokerController {
 
   def close = {
     //redirect(controller:'project', action:'dashboard', params:[product:params.product])
-    render(status:200,text:"")
-    pushOthers "${params.product}-plugin-planning-poker-close"
+    pushOthers "${params.product}-planningPoker-close"
+    render(status:200)
   }
 }
 

@@ -12,11 +12,15 @@
 
         o:{},
 
-        forPlanningTest:function(){
+        notifyPlanningPoker:function(){
             jQuery.icescrum.renderNotice("New Planning Poker session "+
                     "<a href=\"javascript:;\" disabled=\"true\" onClick=\"jQuery.icescrum.openWindow(\'planningPoker/display\')\">" +
                     "<button>Join</button>" +
                     "</a>","notice");
+        } ,
+
+        closePlanningPoker:function(){
+             jQuery.icescrum.openWindow('project');
         }
     });
     $.widget("ui.planningpoker", {
