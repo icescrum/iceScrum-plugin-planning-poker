@@ -4,6 +4,7 @@ class PlanningPokerTagLib {
   static namespace = 'is'
 
   def planningPokerStoryList = { attrs, body ->
+    def jqCode
     if(attrs.selectable) {
      def selectableOptions = [
              filter: UtilsWebComponents.wrap(attr: (attrs.selectable.filter), doubleQuote: true),
@@ -12,10 +13,12 @@ class PlanningPokerTagLib {
              stop: attrs.selectable.stop,
      ]
     def opts = selectableOptions.findAll {k, v -> v}.collect {k, v -> " $k:$v" }.join(',')
-     def jqCode = " \$('#${attrs.id}').selectable({${opts}}); "
-    out << jq.jquery(null, jqCode)
+     jqCode = " \$('#${attrs.id } div').selectable({${opts}}); "
+
     }
      out << "<div id=\"${attrs.id}\" class=\"stories-list\">"+body()+"</div>"
+
+    out << jq.jquery(null, jqCode)
    }
 
 }

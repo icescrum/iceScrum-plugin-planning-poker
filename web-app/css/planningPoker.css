@@ -84,3 +84,7 @@
 .stories-list{
     overflow:hidden;
 }
+
+.selected{
+    background-color:#777
+}

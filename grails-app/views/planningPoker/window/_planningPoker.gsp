@@ -127,4 +127,10 @@
  $('#accepted-list').scrollbar({contentWidth:windowWidth, position:'bottom'});
  $('#estimated-list').scrollbar({contentWidth:windowWidth, position:'bottom'});
 
+  $("#accepted-list .accepted-list").click(function() {
+$(this).addClass("selected ui-corner-all").siblings().removeClass("selected ui-corner-all");
+});
+   $("#accepted-list .accepted-list").dblclick(function() {
+   alert("TODO quickloock")  ;
+});
 </jq:jquery>
