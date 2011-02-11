@@ -11,9 +11,10 @@
           icon="close"
           rendered="${productOwner}"
           controller="${id}"
+          history="false"
           title="${message(code:'is.ui.planningPoker.toolbar.alt.close')}"
           alt="${message(code:'is.ui.planningPoker.toolbar.alt.close')}"
-          update="window-content-${id}">
+          onSuccess="jQuery.icescrum.openWindow('project')">
 ${message(code:'is.ui.planningPoker.toolbar.alt.close')}
 </is:iconButton>
 </div>

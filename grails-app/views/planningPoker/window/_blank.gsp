@@ -10,6 +10,7 @@
             rendered="${scrumMaster}"
             action="start"
             update="window-content-planningPoker"
+            history="false"
             onSuccess="\$.icescrum.displayView('start')"
             remote="true"
             value="${message(code:'is.ui.planningPoker.start')}"/>
