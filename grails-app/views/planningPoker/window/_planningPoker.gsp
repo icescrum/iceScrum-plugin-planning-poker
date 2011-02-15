@@ -127,6 +127,12 @@
  $('#accepted-list').scrollbar({contentWidth:windowWidth, position:'bottom'});
  $('#estimated-list').scrollbar({contentWidth:windowWidth, position:'bottom'});
 
+//----------- Vote------------
+ $(".planning-poker-carte.me").click(function(){
+   $(".planning-poker-carte.me").removeClass("activatedCard");
+   $(this).addClass("activatedCard");
+ });
+//----------------------------
   $("#accepted-list .accepted-list").click(function() {
 $(this).addClass("selected ui-corner-all").siblings().removeClass("selected ui-corner-all");
 });

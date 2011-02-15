@@ -88,3 +88,9 @@
 .selected{
     background-color:#777
 }
+
+.planning-poker-carte.me.activatedCard {
+    height:35px;
+    background:#adff2f ;
+    font-weight:bold ;
+}
