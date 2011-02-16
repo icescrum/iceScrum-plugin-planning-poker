@@ -30,7 +30,7 @@
                 action="choose"
                 history="false"
                 remote="true"
-                params="valueCard=${n}">
+                params="[valueCard:n]">
                 <div class='planning-poker-carte ui-corner-top me'>${n}</div>
             </is:link>
 
