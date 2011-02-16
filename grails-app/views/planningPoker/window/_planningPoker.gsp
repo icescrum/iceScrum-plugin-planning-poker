@@ -53,6 +53,7 @@
 
   <is:planningPokerStoryList
           id='accepted-list'
+         dblclickable='[selector:".postit", callback:is.quickLook(params:"\"story.id=\"+obj.attr(\"elemId\")")]'
           style="width:100%"
           selectable="[filter:'.postit',
                  cancel:'.postit-label, .postit-story, a',
@@ -95,7 +96,8 @@
 
   <p><g:message code="is.ui.planningPoker.estimated"/> :</p>
 <is:planningPokerStoryList
-         id='estimated-list'>
+         id='estimated-list'
+         dblclickable='[selector:".postit", callback:is.quickLook(params:"\"story.id=\"+obj.attr(\"elemId\")")]'>
     <g:each in="${stories_e}" var="story">
       <div style="float:left">
         <is:postit id="${story.id}"
@@ -110,7 +112,6 @@
                 color="${story.feature?.color}"
                 stateText="${is.bundleFromController(bundle:'stateBundle',value:story.state)}"
                 controller="planningPoker"
-                dblclickable='[selector:".postit", callback:is.quickLook(params:"\"story.id=\"+obj.attr(\"elemId\")")]'
                 comment="${story.totalComments >= 0 ? story.totalComments : ''}">
           <is:truncated size="50" encodedHTML="true"><is:storyTemplate story="${story}"/></is:truncated>
 
@@ -131,6 +132,7 @@
   </is:planningPokerStoryList>
 </div>
 
+
 <jq:jquery>
   var postitWidth = $('#accepted-list .postit-story').width();
  var windowWidth = $('.window-content').width();
@@ -144,15 +146,14 @@
 //----------- Vote------------
  $(".planning-poker-carte.me").click(function(){
    $(".planning-poker-carte.me").removeClass("activatedCard");
-   $(this).addClass("activatedCard");
+   $(this).addClass("activatedCard");  // bla
  });
 //----------------------------
   $("#accepted-list .accepted-list").click(function() {
-$(this).addClass("selected ui-corner-all").siblings().removeClass("selected ui-corner-all");
+    $(this).addClass("selected ui-corner-all").siblings().removeClass("selected ui-corner-all");
 });
-   $("#accepted-list .accepted-list").dblclick(function() {
-   alert("TODO quickloock")  ;
- });
+
+
 
    jQuery("#window-content-${id}").removeClass('window-content-toolbar');
   if(!jQuery("#dropmenu").is(':visible')){

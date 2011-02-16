@@ -8,7 +8,6 @@
 <div class="right">
 <is:iconButton
           action="close"
-          icon="close"
           rendered="${productOwner}"
           controller="${id}"
           history="false"
