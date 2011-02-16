@@ -130,7 +130,7 @@
 //----------- Vote------------
  $(".planning-poker-carte.me").click(function(){
    $(".planning-poker-carte.me").removeClass("activatedCard");
-   $(this).addClass("activatedCard");
+   $(this).addClass("activatedCard");  // bla
  });
 //----------------------------
   $("#accepted-list .accepted-list").click(function() {
