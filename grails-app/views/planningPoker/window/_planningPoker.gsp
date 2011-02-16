@@ -1,5 +1,5 @@
 <r:use module="planningPoker"/>
-
+<g:set var="scrumMaster" value="${sec.access([expression:'scrumMaster()'], {true})}"/>
 <g:set var="productOwner" value="${sec.access([expression:'productOwner()'], {true})}"/>
 
 <div id="jeu">
@@ -55,7 +55,8 @@
           id='accepted-list'
          dblclickable='[selector:".postit", callback:is.quickLook(params:"\"story.id=\"+obj.attr(\"elemId\")")]'
           style="width:100%"
-          selectable="[filter:'.postit',
+          selectable="[rendered:scrumMaster,
+          filter:'.postit',
                  cancel:'.postit-label, .postit-story, a',
                  selected:'\$.icescrum.dblclickSelectable(ui,300,function(obj){'+is.quickLook(params:'\'story.id=\'+\$(obj.selected).icescrum(\'postit\').id()')+';})']">
 
@@ -149,9 +150,6 @@
    $(this).addClass("activatedCard");  // bla
  });
 //----------------------------
-  $("#accepted-list .accepted-list").click(function() {
-    $(this).addClass("selected ui-corner-all").siblings().removeClass("selected ui-corner-all");
-});
 
 
 

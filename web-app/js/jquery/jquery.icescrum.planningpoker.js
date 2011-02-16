@@ -49,7 +49,7 @@
 	    },
 
         widget: function() {
-            return this.uiChat
+            return this.ui.planninPoker
         },
 
         _create: function(){
@@ -59,9 +59,13 @@
 
             options.storyWidth= $(".postit.story").css('width');
 
-            options.estimatedStoriesListWidth = options.storyWidth * $("#estimated-list").length;
+            options.estimatedStoriesListWidth = options.storyWidth * $("#estimated-list").size();
 
-            options.acceptedStoriesListWidth = options.storyWidth * $("#accepted-list").length;
+            options.acceptedStoriesListWidth = options.storyWidth * $("#accepted-list").size();
+
+            alert(options.acceptedStoriesListWidth+'----'+ options.estimatedStoriesListWidth);
+
+
 
         },
 

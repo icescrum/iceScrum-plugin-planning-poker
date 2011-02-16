@@ -5,7 +5,7 @@ class PlanningPokerTagLib {
 
   def planningPokerStoryList = { attrs, body ->
     def jqCode=""
-    if (attrs.selectable) {
+    if (attrs.selectable != null && UtilsWebComponents.rendered(attrs.selectable)){
       def selectableOptions = [
               filter: UtilsWebComponents.wrap(attr: (attrs.selectable.filter), doubleQuote: true),
               cancel: UtilsWebComponents.wrap(attrs.selectable.cancel),
@@ -13,7 +13,7 @@ class PlanningPokerTagLib {
               stop: attrs.selectable.stop,
       ]
       def opts = selectableOptions.findAll {k, v -> v}.collect {k, v -> " $k:$v" }.join(',')
-      jqCode += " \$('#${attrs.id } div').selectable({${opts}}); "
+      jqCode += " \$('#${attrs.id } div').selectable({${opts}});  \$('#accepted-list .accepted-list').click(function() {\$(this).addClass(\"selected ui-corner-all\").siblings().removeClass(\"selected ui-corner-all\");}); "
 
     }
 
