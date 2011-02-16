@@ -104,6 +104,11 @@ class PlanningPokerController {
     pushOthers "${params.product}-planningPoker-close"
     render(status:200)
   }
+
+    def choose = {
+        //params.valueCard
+        render(status:200)
+    }
 }
 
 

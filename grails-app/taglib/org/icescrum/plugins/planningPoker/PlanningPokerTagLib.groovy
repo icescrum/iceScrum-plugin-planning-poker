@@ -21,4 +21,8 @@ class PlanningPokerTagLib {
     out << jq.jquery(null, jqCode)
    }
 
+  def planningPokerFinalEstimate = { attrs, body ->
+     out << "<div class=\"planning-poker-carte-result  ui-corner-all\"><div class=\"estimation\">${attrs.number}"+body()+"</div></div>"
+  }
+
 }

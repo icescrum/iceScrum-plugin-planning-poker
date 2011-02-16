@@ -81,12 +81,34 @@
     right:0;
     top:0;
 }
+
 .stories-list{
     overflow:hidden;
 }
 
 .selected{
     background-color:#777
+}
+
+.planning-poker-carte-result{
+    position:absolute ;
+    right:10%;
+    top:20%;
+    height:133px;
+    width:100px;
+    bottom:0;
+    margin:auto;
+    border:1px silver solid;
+    background-color: #ffffff;
+    vertical-align:middle;
+    text-align:center
+}
+
+.estimation{
+    font-size: 50px;
+    font-family: "Comic Sans MS", serif;
+    position:relative;
+    top:40%
 }
 
 .planning-poker-carte.me.activatedCard {

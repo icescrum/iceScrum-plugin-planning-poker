@@ -26,12 +26,27 @@
       </td>
       <g:each in="${suite_fibo}" var="n">
         <td class="planning-poker-card">
-          <div class="planning-poker-carte ui-corner-top me">${n}</div>
+            <is:link controller="planningPoker"
+                action="choose"
+                history="false"
+                remote="true"
+                params="valueCard=${n}">
+                <div class='planning-poker-carte ui-corner-top me'>${n}</div>
+            </is:link>
+
         </td>
       </g:each>
     </tr>
   </table>
+
+    <div id="planning-poker-final-estimate">
+
+    </div>
+
+
+
 </div>
+
 <div id="stories">
 
   <p><g:message code="is.ui.planningPoker.accepted"/> :</p>
@@ -116,7 +131,6 @@
   </is:planningPokerStoryList>
 </div>
 
-
 <jq:jquery>
   var postitWidth = $('#accepted-list .postit-story').width();
  var windowWidth = $('.window-content').width();
@@ -130,7 +144,7 @@
 //----------- Vote------------
  $(".planning-poker-carte.me").click(function(){
    $(".planning-poker-carte.me").removeClass("activatedCard");
-   $(this).addClass("activatedCard");  // bla
+   $(this).addClass("activatedCard");
  });
 //----------------------------
   $("#accepted-list .accepted-list").click(function() {
@@ -144,10 +158,17 @@ $(this).addClass("selected ui-corner-all").siblings().removeClass("selected ui-c
   if(!jQuery("#dropmenu").is(':visible')){
     jQuery("#window-id-${id}").focus();
   }
+
+
   <is:renderNotice />
   <icep:notifications
         name="planningPokerWindow"
         callback="jQuery.icescrum.planningpoker.closePlanningPoker();"
         group="${params.product}-planningPoker-close"
+        listenOn="#window-content-planningPoker"/>
+  <icep:notifications
+        name="planningPokerWindow"
+        callback="jQuery.icescrum.planningpoker.showResult();"
+        group="${params.product}-planningPoker-finalResult"
         listenOn="#window-content-planningPoker"/>
 </jq:jquery>

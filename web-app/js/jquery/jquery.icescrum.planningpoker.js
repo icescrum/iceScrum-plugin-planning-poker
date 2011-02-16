@@ -19,6 +19,11 @@
                     "</a>","notice");
         } ,
 
+        showResult:function(){
+            $("#planning-poker-final-estimate").html("<div class=\"planning-poker-carte-result  ui-corner-all\"><div class=\"estimation\">17</div></div>");
+            //<is:planningPokerFinalEstimate number=\"16\"/>
+        },
+
         closePlanningPoker:function(){
              jQuery.icescrum.openWindow('project');
         }
