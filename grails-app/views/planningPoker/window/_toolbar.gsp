@@ -5,7 +5,7 @@
   Time: 14:20
   To change this template use File | Settings | File Templates.
 --%>
-<div class="right">
+<div class="planning-poker-right">
 <is:iconButton
           action="close"
           rendered="${productOwner}"
