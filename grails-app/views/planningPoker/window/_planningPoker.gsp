@@ -137,7 +137,7 @@
 <jq:jquery>
   var postitWidth = $('#accepted-list .postit-story').width();
  var windowWidth = $('.window-content').width();
-
+ alert.log(postitWidth);
  $('#accepted-list').css({width: postitWidth * $('#accepted-list .postit-story').size() });
  $('#estimated-list').css({width: postitWidth * $('#estimated-list .postit-story').size() });
 
@@ -157,7 +157,7 @@
   if(!jQuery("#dropmenu").is(':visible')){
     jQuery("#window-id-${id}").focus();
   }
-
+  jQuery.icescrum.planningpoker.init();
 
   <is:renderNotice />
   <icep:notifications

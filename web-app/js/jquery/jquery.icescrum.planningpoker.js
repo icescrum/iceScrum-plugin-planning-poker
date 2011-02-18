@@ -10,7 +10,26 @@
             }
         },
 
-        o:{},
+        o:{
+            id: null,
+            storyWidth:null,
+            estimatedStoriesListWidth:null,
+            acceptedStoriesListWidth:null
+
+        },
+
+        init:function(){
+             var self = this;
+             var o = self.o;
+
+
+            o.storyWidth= $(".postit.story").css('width');
+
+           o.estimatedStoriesListWidth = o.storyWidth * $("#estimated-list").size();
+
+            o.acceptedStoriesListWidth = o.storyWidth * $("#accepted-list").size();
+
+        },
 
         notifyPlanningPoker:function(){
             jQuery.icescrum.renderNotice("New Planning Poker session "+
@@ -28,6 +47,10 @@
              jQuery.icescrum.openWindow('project');
         }
     });
+
+
+
+
     $.widget("ui.planningpoker", {
 	    options: {
             id: null,
@@ -53,17 +76,7 @@
         },
 
         _create: function(){
-            var self = this;
-            var options = self.options;
-            var title = options.title;
 
-            options.storyWidth= $(".postit.story").css('width');
-
-            options.estimatedStoriesListWidth = options.storyWidth * $("#estimated-list").size();
-
-            options.acceptedStoriesListWidth = options.storyWidth * $("#accepted-list").size();
-
-            alert(options.acceptedStoriesListWidth+'----'+ options.estimatedStoriesListWidth);
 
 
 
