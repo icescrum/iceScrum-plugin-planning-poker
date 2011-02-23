@@ -1,17 +1,12 @@
-import org.icescrum.components.UtilsWebComponents
 import org.icescrum.core.domain.User
-import org.icescrum.core.domain.Task
-
 import org.icescrum.core.domain.Product
-
-import org.icescrum.core.domain.Team
 import org.icescrum.core.domain.PlanningPokerGame
-import org.icescrum.core.support.ApplicationSupport
 import org.icescrum.core.domain.Story
 
-import grails.plugins.springsecurity.Secured
-import org.springframework.security.core.context.SecurityContextHolder as SCH
+import icescrum.plugin.planning.poker.PlanningPokerVote
+import icescrum.plugin.planning.poker.PlanningPokerSession
 
+import grails.plugins.springsecurity.Secured
 
 class PlanningPokerController {
 
@@ -21,7 +16,7 @@ class PlanningPokerController {
   static menuBar = [show:[visible:true,pos:0],title:'is.ui.planningPoker']
   static window = [title:'is.ui.planningPoker',help:'is.ui.planningPoker.help',toolbar:true]
 
-   static stateBundle = [
+  static stateBundle = [
           (Story.STATE_SUGGESTED):'is.story.state.suggested',
           (Story.STATE_ACCEPTED):'is.story.state.accepted',
           (Story.STATE_ESTIMATED):'is.story.state.estimated',
@@ -39,33 +34,27 @@ class PlanningPokerController {
   def springSecurityService
 
   def index = {
-
-       render(template:'window/blank',plugin:pluginName ,model:[
-            id:id])
+    render(template:'window/blank',plugin:pluginName ,model:[id:id])
   }
 
   def join = {
-    redirect(action: 'display', params:[product:params.product])
+    redirect(action:'display', params:[product:params.product])
   }
 
   @Secured('scrumMaster()')
   def start = {
-
+    PlanningPokerSession session = new PlanningPokerSession(product:Product.get(params.product))
+    if(session.save())
+        println "session created"
     pushOthers  "${params.product}-plugin-planning-poker"
-    redirect(action: 'display', params:[product:params.product])
+    redirect(action:'display', params:[product:params.product])
   }
 
   def display = {
 
-    def projectMembers = []
-    def storiesEstimees = []
-    def storiesNonEstimees = []
-
     def currentProduct = Product.get(params.product)
 
-    // r�cup�ration de la liste des utilisateurs travaillant sur le projet
-    projectMembers = currentProduct.getAllUsers()
-       // suppression de l'utilisateur courant de la liste
+    def projectMembers = currentProduct.getAllUsers()
     def pop=false
     for(def i=0;i<projectMembers.size() && pop==false;i++){
       if(projectMembers[i].id==springSecurityService.principal.id){
@@ -74,20 +63,14 @@ class PlanningPokerController {
       }
     }
 
-    // Recherche de la liste des stories estimees du projet
-    storiesEstimees=Story.findAllByBacklogAndState(currentProduct, Story.STATE_ESTIMATED,  [cache: true, sort: 'rank'])
+    def storiesEstimees = Story.findAllByBacklogAndState(currentProduct, Story.STATE_ESTIMATED,  [cache: true, sort: 'rank'])
+    def storiesNonEstimees = Story.findAllByBacklogAndState(currentProduct, Story.STATE_ACCEPTED,  [cache: true, sort: 'rank'])
 
-    // Recherche de la liste des stories estimees du projet
-    storiesNonEstimees=Story.findAllByBacklogAndState(currentProduct, Story.STATE_ACCEPTED,  [cache: true, sort: 'rank'])
-
-
-    // liste des cartes selon parametres du projet
-    def suite = []
-    if(currentProduct. planningPokerGameType == PlanningPokerGame.FIBO_SUITE)
-         suite= PlanningPokerGame.getInteger(PlanningPokerGame.FIBO_SUITE)
+    def suite
+    if(currentProduct.planningPokerGameType == PlanningPokerGame.FIBO_SUITE)
+         suite = PlanningPokerGame.getInteger(PlanningPokerGame.FIBO_SUITE)
     else
-         suite= PlanningPokerGame.getInteger(PlanningPokerGame.INTEGER_SUITE)
-
+         suite = PlanningPokerGame.getInteger(PlanningPokerGame.INTEGER_SUITE)
 
     render(template:'window/planningPoker',plugin:pluginName ,model:[
             u:projectMembers,
@@ -98,7 +81,6 @@ class PlanningPokerController {
             id:id,])
   }
 
-
   def close = {
     //redirect(controller:'project', action:'dashboard', params:[product:params.product])
     pushOthers "${params.product}-planningPoker-close"
@@ -106,8 +88,22 @@ class PlanningPokerController {
   }
 
   def selectStory = {
+    println "PP : story selected"
     pushOthers "${params.product}-planningPoker-selection-story"
   }
+
+  def submitVote = {
+    User currentUser = User.get(springSecurityService.principal.id)
+    def currentSession = PlanningPokerSession.findByProduct(Product.get(params.product))
+    def vote
+    currentSession?.votes.each{
+      if(it.user == currentUser)
+        vote = it;
+    }
+    if(!vote)
+      vote = new PlanningPokerVote(user:currentUser, session:currentSession)
+    vote.voteValue = Integer.parseInt(params.valueCard)
+    if(vote.save(flush:true))
+        println "vote saved :" + vote.voteValue
+  }
 }
-
-

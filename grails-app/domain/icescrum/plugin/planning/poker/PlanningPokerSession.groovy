@@ -5,9 +5,11 @@ import org.icescrum.core.domain.Story
 
 class PlanningPokerSession {
 
-    static constraints = {
-    }
-
     static belongsTo = [product:Product, story:Story]
-    static hasMany = [vote:PlanningPokerVote]
+    static hasMany = [votes:PlanningPokerVote]
+
+    static constraints = {
+        story(nullable:true)
+        votes(nullable:true)
+    }
 }

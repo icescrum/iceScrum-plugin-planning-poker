@@ -18,7 +18,6 @@
   <div align="center"><is:avatar userid="${me.id}" class="ico"/><br/>
     ${me.firstName} ${me.lastName}</div>
 
-
   <table id="planning-poker-card-list">
     <tr>
       <td class="planning-poker-card">
@@ -33,17 +32,13 @@
                 params="[valueCard:n]">
                 <div class='planning-poker-carte ui-corner-top me'>${n}</div>
             </is:link>
-
         </td>
       </g:each>
     </tr>
   </table>
 
-    <div id="planning-poker-final-estimate">
-
-    </div>
-
-
+  <div id="planning-poker-final-estimate">
+  </div>
 
 </div>
 
@@ -56,7 +51,7 @@
          dblclickable='[selector:".postit", callback:is.quickLook(params:"\"story.id=\"+obj.attr(\"elemId\")")]'
           style="width:100%"
           selectable="[rendered:scrumMaster,
-          filter:'.postit',
+                 filter:'.postit',
                  cancel:'.postit-label, .postit-story, a',
                  selected:'\$.icescrum.dblclickSelectable(ui,300,function(obj){'+is.quickLook(params:'\'story.id=\'+\$(obj.selected).icescrum(\'postit\').id()')+';})']">
 
@@ -76,9 +71,6 @@
                 controller="planningPoker"
                 comment="${story.totalComments >= 0 ? story.totalComments : ''}">
           <is:truncated size="50" encodedHTML="true"><is:storyTemplate story="${story}"/></is:truncated>
-
-
-
           <g:if test="${story.name?.length() > 17 || is.storyTemplate(story:story).length() > 50}">
             <is:tooltipPostit
                     type="story"
@@ -92,8 +84,6 @@
       </div>
     </g:each>
   </is:planningPokerStoryList>
-
-
 
   <p><g:message code="is.ui.planningPoker.estimated"/> :</p>
 <is:planningPokerStoryList
@@ -115,9 +105,6 @@
                 controller="planningPoker"
                 comment="${story.totalComments >= 0 ? story.totalComments : ''}">
           <is:truncated size="50" encodedHTML="true"><is:storyTemplate story="${story}"/></is:truncated>
-
-
-
           <g:if test="${story.name?.length() > 17 || is.storyTemplate(story:story).length() > 50}">
             <is:tooltipPostit
                     type="story"
@@ -135,7 +122,7 @@
 
 
 <jq:jquery>
-  var postitWidth = $('#accepted-list .postit-story').width();
+ var postitWidth = $('#accepted-list .postit-story').width();
  var windowWidth = $('.window-content').width();
  alert.log(postitWidth);
  $('#accepted-list').css({width: postitWidth * $('#accepted-list .postit-story').size() });
@@ -150,8 +137,6 @@
    $(this).addClass("activatedCard");  // bla
  });
 //----------------------------
-
-
 
    jQuery("#window-content-${id}").removeClass('window-content-toolbar');
   if(!jQuery("#dropmenu").is(':visible')){
