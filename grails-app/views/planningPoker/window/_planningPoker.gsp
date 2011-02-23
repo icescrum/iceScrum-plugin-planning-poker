@@ -27,7 +27,7 @@
       <g:each in="${suite_fibo}" var="n">
         <td class="planning-poker-card">
             <is:link controller="planningPoker"
-                action="choose"
+                action="submitVote"
                 history="false"
                 remote="true"
                 params="[valueCard:n]">

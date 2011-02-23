@@ -7,6 +7,6 @@ class PlanningPokerVote {
     static constraints = {
     }
 
-    static belongsTo = [user:User, planningPokerSession:PlanningPokerSession]
+    static belongsTo = [user:User, session:PlanningPokerSession]
     int voteValue
 }
