@@ -105,10 +105,9 @@ class PlanningPokerController {
     render(status:200)
   }
 
-    def choose = {
-        //params.valueCard
-        render(status:200)
-    }
+  def selectStory = {
+    pushOthers "${params.product}-planningPoker-selection-story"
+  }
 }
 
 

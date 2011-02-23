@@ -170,4 +170,9 @@
         callback="jQuery.icescrum.planningpoker.showResult();"
         group="${params.product}-planningPoker-finalResult"
         listenOn="#window-content-planningPoker"/>
+  <icep:notifications
+        name="planningPokerWindow"
+        reload="[update:'#window-content-planningPoker',action:'selectStory',params:[product:params.product]]"
+        group="${params.product}-planningPoker-selection-story"
+        listenOn="#window-content-planningPoker"/>
 </jq:jquery>
