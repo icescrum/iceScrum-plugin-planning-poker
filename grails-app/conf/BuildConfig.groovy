@@ -15,7 +15,7 @@ grails.project.dependency.resolution = {
         // uncomment the below to enable remote dependency resolution
         // from public Maven repositories
         //mavenLocal()
-        //mavenCentral()
+        mavenCentral()
         //mavenRepo "http://snapshots.repository.codehaus.org"
         //mavenRepo "http://repository.codehaus.org"
         //mavenRepo "http://download.java.net/maven/2/"
@@ -29,6 +29,6 @@ grails.project.dependency.resolution = {
     }
 
     plugins {
-      compile "org.icescrum:icescrum-core:1.2"
+      compile "org.icescrum:icescrum-core:1.2.1"
     }
 }
