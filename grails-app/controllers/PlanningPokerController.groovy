@@ -50,6 +50,10 @@ class PlanningPokerController {
     redirect(action:'display', params:[product:params.product])
   }
 
+  def startVote = {
+    pushOthers  "${params.product}-planningPoker-startVote"
+  }
+
   def display = {
 
     def currentProduct = Product.get(params.product)

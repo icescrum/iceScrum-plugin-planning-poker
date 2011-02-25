@@ -57,6 +57,10 @@
             //<is:planningPokerFinalEstimate number=\"16\"/>
         },
 
+        startVote:function(){
+
+        },
+
         closePlanningPoker:function(){
              jQuery.icescrum.openWindow('project');
         }

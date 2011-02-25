@@ -22,7 +22,7 @@
                 remote="true"
                 controller="planningPoker"
                 button="button-s button-s-light"
-                action="#"
+                action="startVote"
                 title="${message(code:'is.ui.planningPoker.vote.start')}"
                 alt="${message(code:'is.ui.planningPoker.vote.start')}"
                 icon="create" >
@@ -154,5 +154,10 @@
         name="planningPokerWindow"
         reload="[update:'#window-content-planningPoker',action:'selectStory',params:[product:params.product]]"
         group="${params.product}-planningPoker-selection-story"
+        listenOn="#window-content-planningPoker"/>
+  <icep:notifications
+        name="planningPokerWindow"
+        callback="jQuery.icescrum.planningpoker.startVote();"
+        group="${params.product}-planningPoker-startVote"
         listenOn="#window-content-planningPoker"/>
 </jq:jquery>
