@@ -21,13 +21,27 @@
         init:function(){
              var self = this;
              var o = self.o;
+            o.storyWidth= $(".postit.story").width();
+            o.windowWidth = $('.window-content').width();
+            o.estimatedStoriesListWidth = o.storyWidth * $("#estimated-list .postit-story").size();
 
+            o.acceptedStoriesListWidth = o.storyWidth * $("#accepted-list .postit-story").size();
 
-            o.storyWidth= $(".postit.story").css('width');
+             $('#accepted-list').css({width: o.acceptedStoriesListWidth });
+            $('#estimated-list').css({width: o.estimatedStoriesListWidth });
 
-           o.estimatedStoriesListWidth = o.storyWidth * $("#estimated-list").size();
+            $('#accepted-list').scrollbar({contentWidth:o.windowWidth, position:'bottom'});
+            $('#estimated-list').scrollbar({contentWidth:o.windowWidth, position:'bottom'});
 
-            o.acceptedStoriesListWidth = o.storyWidth * $("#accepted-list").size();
+            //----------- Vote------------
+             $(".planning-poker-carte.me").click(function(){
+               $(".planning-poker-carte.me").removeClass("activatedCard");
+               $(this).addClass("activatedCard");  // bla
+             });
+            $("#window-content-${id}").removeClass('window-content-toolbar');
+  if(!$("#dropmenu").is(':visible')){
+    $("#window-id-${id}").focus();
+  }
 
         },
 

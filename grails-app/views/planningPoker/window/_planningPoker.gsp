@@ -137,25 +137,6 @@
 
 
 <jq:jquery>
- var postitWidth = $('#accepted-list .postit-story').width();
- var windowWidth = $('.window-content').width();
- $('#accepted-list').css({width: postitWidth * $('#accepted-list .postit-story').size() });
- $('#estimated-list').css({width: postitWidth * $('#estimated-list .postit-story').size() });
-
- $('#accepted-list').scrollbar({contentWidth:windowWidth, position:'bottom'});
- $('#estimated-list').scrollbar({contentWidth:windowWidth, position:'bottom'});
-
-//----------- Vote------------
- $(".planning-poker-carte.me").click(function(){
-   $(".planning-poker-carte.me").removeClass("activatedCard");
-   $(this).addClass("activatedCard");  // bla
- });
-//----------------------------
-
-   jQuery("#window-content-${id}").removeClass('window-content-toolbar');
-  if(!jQuery("#dropmenu").is(':visible')){
-    jQuery("#window-id-${id}").focus();
-  }
   jQuery.icescrum.planningpoker.init();
 
   <is:renderNotice />

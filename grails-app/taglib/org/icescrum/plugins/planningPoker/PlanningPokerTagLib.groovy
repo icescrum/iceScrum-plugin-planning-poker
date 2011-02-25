@@ -9,7 +9,7 @@ class PlanningPokerTagLib {
       def selectableOptions = [
               filter: UtilsWebComponents.wrap(attr: (attrs.selectable.filter), doubleQuote: true),
               cancel: UtilsWebComponents.wrap(attrs.selectable.cancel),
-              selected: "function(event,ui){${attrs.selectable.selected}}",
+              selected: "function(event,ui){ console.log('ok'); ${attrs.selectable.selected}}",
               stop: attrs.selectable.stop,
       ]
       def opts = selectableOptions.findAll {k, v -> v}.collect {k, v -> " $k:$v" }.join(',')
