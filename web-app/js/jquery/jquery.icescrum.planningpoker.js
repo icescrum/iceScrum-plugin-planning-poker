@@ -45,12 +45,40 @@
 
         },
 
-        notifyPlanningPoker:function(){
+        notifyPlanningPoker:function(product){
+            console.log("product : " + product);
             jQuery.icescrum.renderNotice("New Planning Poker session "+
-                    "<a href=\"javascript:;\" disabled=\"true\" onClick=\"jQuery.icescrum.openWindow(\'planningPoker/display\')\">" +
-                    "<button>Join</button>" +
-                    "</a>","notice");
-        } ,
+                                        "<a id=\"redirection\" href=\"javascript:;\" disabled=\"true\" " +
+                                        "<button>Join</button>" +
+                                        "</a>","notice");
+            $('#redirection').click(function(){
+                $.ajax({type:'POST',
+                    global:false,
+                    url: $.icescrum.o.grailsServer + '/planningPoker/join/',
+                    data: {
+                        product: product
+                    },
+                    success:function(data) {
+                        console.log("redirection pp");
+                        jQuery.icescrum.openWindow('planningPoker/display');
+                    }
+                });
+            });
+        },
+
+        notifyStorySelected:function(product){
+                $.ajax({type:'POST',
+                    global:false,
+                    url: $.icescrum.o.grailsServer + '/planningPoker/getStory/',
+                    data: {
+                        product: product
+                    },
+                    success:function(data) {
+                        data: $.parseJSON(data),
+                        $("planning-poker-table").html("Story selectionnee : " + data.story );
+                    }
+                });
+        },
 
         showResult:function(){
             $("#planning-poker-final-estimate").html("<div class=\"planning-poker-carte-result  ui-corner-all\"><div class=\"estimation\">17</div></div>");

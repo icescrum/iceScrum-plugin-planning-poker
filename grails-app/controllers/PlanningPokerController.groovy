@@ -7,6 +7,7 @@ import icescrum.plugin.planning.poker.PlanningPokerVote
 import icescrum.plugin.planning.poker.PlanningPokerSession
 
 import grails.plugins.springsecurity.Secured
+import grails.converters.JSON
 
 class PlanningPokerController {
 
@@ -38,6 +39,10 @@ class PlanningPokerController {
   }
 
   def join = {
+    User currentUser = User.get(springSecurityService.principal.id)
+    def currentSession = PlanningPokerSession.findByProduct(Product.get(params.product))
+    PlanningPokerVote vote = new PlanningPokerVote(user:currentUser, session:currentSession)
+    vote.save(flush:true)
     redirect(action:'display', params:[product:params.product])
   }
 
@@ -97,26 +102,32 @@ class PlanningPokerController {
   }
 
   def close = {
-    //redirect(controller:'project', action:'dashboard', params:[product:params.product])
     pushOthers "${params.product}-planningPoker-close"
     render(status:200)
   }
 
   def selectStory = {
     println "PP : story selected"
+    def currentSession = PlanningPokerSession.findByProduct(Product.get(params.product))
+    currentSession.story = Story.get(params.story)
+    currentSession.save(flush:true)
     pushOthers "${params.product}-planningPoker-selection-story"
+  }
+
+  def getStory = {
+    def currentSession = PlanningPokerSession.findByProduct(Product.get(params.product))
+    def story = currentSession.story
+    render(status:200, story as JSON)
   }
 
   def submitVote = {
     User currentUser = User.get(springSecurityService.principal.id)
     def currentSession = PlanningPokerSession.findByProduct(Product.get(params.product))
     def vote
-    currentSession?.votes.each{
+    currentSession.votes.each{
       if(it.user == currentUser)
         vote = it;
     }
-    if(!vote)
-      vote = new PlanningPokerVote(user:currentUser, session:currentSession)
     vote.voteValue = Integer.parseInt(params.valueCard)
     if(vote.save(flush:true))
         println "vote saved :" + vote.voteValue
