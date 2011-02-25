@@ -116,3 +116,8 @@
     background:#adff2f ;
     font-weight:bold ;
 }
+
+#voteButton{
+    margin-left:45%;
+    margin-top:2%;
+}

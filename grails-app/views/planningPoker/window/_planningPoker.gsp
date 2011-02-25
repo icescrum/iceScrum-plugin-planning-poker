@@ -14,7 +14,22 @@
     </g:each>
   </ul>
 
-  <div id="planning-poker-table" class="ui-corner-all"></div>
+  <div id="planning-poker-table" class="ui-corner-all">
+    <div id="voteButton">
+        <is:button
+              type="link"
+                history="false"
+                remote="true"
+                controller="planningPoker"
+                button="button-s button-s-light"
+                action="#"
+                title="${message(code:'is.ui.planningPoker.vote.start')}"
+                alt="${message(code:'is.ui.planningPoker.vote.start')}"
+                icon="create" >
+              <strong>${message(code:'is.ui.planningPoker.vote.start')}</strong>
+        </is:button>
+    </div>
+  </div>
   <div align="center"><is:avatar userid="${me.id}" class="ico"/><br/>
     ${me.firstName} ${me.lastName}</div>
 
