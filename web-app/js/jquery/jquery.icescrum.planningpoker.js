@@ -86,7 +86,13 @@
         },
 
         startVote:function(){
+            $('#planning-poker-table').html('<div id="planning-poker-countdown"></div>');
+            $('#planning-poker-countdown').countDown({
+	            startNumber: 10,
+	            callBack: function() {
 
+	            }
+            });
         },
 
         closePlanningPoker:function(){

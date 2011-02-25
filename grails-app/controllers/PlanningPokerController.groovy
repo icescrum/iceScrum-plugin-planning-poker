@@ -56,7 +56,7 @@ class PlanningPokerController {
   }
 
   def startVote = {
-    pushOthers  "${params.product}-planningPoker-startVote"
+    push  "${params.product}-planningPoker-startVote"
   }
 
   def display = {
