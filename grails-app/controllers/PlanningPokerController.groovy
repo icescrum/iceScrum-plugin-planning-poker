@@ -66,6 +66,17 @@ class PlanningPokerController {
         projectMembers.remove(i)
       }
     }
+    def usersWithVote = []
+    def currentSession = PlanningPokerSession.findByProduct(Product.get(params.product))
+    projectMembers.each{
+      def memberSearched = it ;
+      def voteValue = null ;
+      currentSession?.votes.each{
+        if(it.user == memberSearched)
+         voteValue = it.voteValue
+        }
+        usersWithVote.add(user:memberSearched,voteValue:voteValue)
+    }
 
     def storiesEstimees = Story.findAllByBacklogAndState(currentProduct, Story.STATE_ESTIMATED,  [cache: true, sort: 'rank'])
     def storiesNonEstimees = Story.findAllByBacklogAndState(currentProduct, Story.STATE_ACCEPTED,  [cache: true, sort: 'rank'])
@@ -77,7 +88,7 @@ class PlanningPokerController {
          suite = PlanningPokerGame.getInteger(PlanningPokerGame.INTEGER_SUITE)
 
     render(template:'window/planningPoker',plugin:pluginName ,model:[
-            u:projectMembers,
+            usersWithVote:usersWithVote,
             me: User.get(springSecurityService.principal.id),
             suite_fibo:suite,
             stories_e:storiesEstimees,
