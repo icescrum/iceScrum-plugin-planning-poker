@@ -162,7 +162,7 @@
         listenOn="#window-content-planningPoker"/>
   <icep:notifications
         name="planningPokerWindow"
-        reload="[controller:'planningPoker',action:'display',params:[product:params.product]]"
+        reload="[update:'#jeu',controller:'planningPoker',action:'display',params:[product:params.product]]"
         group="${params.product}-planningPoker-startVote"
         listenOn="#window-content-planningPoker"/>
 </jq:jquery>
