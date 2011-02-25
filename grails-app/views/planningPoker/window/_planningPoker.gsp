@@ -152,12 +152,17 @@
         listenOn="#window-content-planningPoker"/>
   <icep:notifications
         name="planningPokerWindow"
-        reload="[update:'#window-content-planningPoker',action:'selectStory',params:[product:params.product]]"
+        callback="jQuery.icescrum.planningpoker.notifyStorySelected(${params.product});"
         group="${params.product}-planningPoker-selection-story"
         listenOn="#window-content-planningPoker"/>
   <icep:notifications
         name="planningPokerWindow"
         callback="jQuery.icescrum.planningpoker.startVote();"
+        group="${params.product}-planningPoker-startVote"
+        listenOn="#window-content-planningPoker"/>
+  <icep:notifications
+        name="planningPokerWindow"
+        reload="[controller:'planningPoker',action:'display',params:[product:params.product]]"
         group="${params.product}-planningPoker-startVote"
         listenOn="#window-content-planningPoker"/>
 </jq:jquery>
