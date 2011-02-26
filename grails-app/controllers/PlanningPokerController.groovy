@@ -56,7 +56,11 @@ class PlanningPokerController {
   }
 
   def startVote = {
-    push  "${params.product}-planningPoker-startVote"
+    push  "${params.product}-planningPoker-beginningOfCountDown"
+  }
+
+  def endOfCountDown = {
+      push  "${params.product}-planningPoker-endOfCountDown"
   }
 
   def display = {

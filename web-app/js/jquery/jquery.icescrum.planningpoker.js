@@ -85,14 +85,26 @@
             //<is:planningPokerFinalEstimate number=\"16\"/>
         },
 
-        startVote:function(){
+        startVote:function(product){
             $('#planning-poker-table').html('<div id="planning-poker-countdown"></div>');
             $('#planning-poker-countdown').countDown({
 	            startNumber: 10,
 	            callBack: function() {
-
+                    $.ajax({type:'POST',
+                        global:false,
+                        url: $.icescrum.o.grailsServer + '/planningPoker/endOfCountDown/',
+                        data: {
+                            product: product
+                        },
+                        success:function() {
+                        }
+                    });
 	            }
             });
+        },
+
+        endOfCountDown:function(){
+           //alert("fin du compte à rebours");
         },
 
         closePlanningPoker:function(){
