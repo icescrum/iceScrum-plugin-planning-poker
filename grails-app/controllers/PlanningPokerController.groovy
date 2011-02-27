@@ -140,4 +140,8 @@ class PlanningPokerController {
     if(vote.save(flush:true))
         println "vote saved :" + vote.voteValue
   }
+  // à corriger !!
+  def button = {
+    render(is.iconButton([action:"index",controller:id, onSuccess:"jQuery.icescrum.openWindow(\"planningPoker\");"],message(code:'is.ui.planningPoker')))
+  }
 }
