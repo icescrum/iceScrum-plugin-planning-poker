@@ -35,7 +35,11 @@ class PlanningPokerController {
   def springSecurityService
 
   def index = {
-    render(template:'window/blank',plugin:pluginName ,model:[id:id])
+    def currentSession = PlanningPokerSession.findByProduct(Product.get(params.product))
+    if(currentSession)
+        forward(action:'display', params:[product:params.product])
+    else
+        render(template:'window/blank',plugin:pluginName ,model:[id:id])
   }
 
   def join = {
