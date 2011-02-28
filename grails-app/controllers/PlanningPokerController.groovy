@@ -66,7 +66,7 @@ class PlanningPokerController {
   }
 
   def endOfCountDown = {
-    //Fin du compte à rebours, enregistre -1
+    //Fin du compte à rebours, enregistre -1 si l'utilisateur n'a pas voté
     //Si il reste des votes à -10 alors certain non pas fini leur compte à rebours
     //Si tout le monde a fini le compte à rebours push tout le monde pour afficher le résultat du planning poker
     User currentUser = User.get(springSecurityService.principal.id)
@@ -106,6 +106,7 @@ class PlanningPokerController {
     vote.voteValue = -10
     if(vote.save(flush:true))
         println "vote saved :" + vote.voteValue
+    render(status:200)
   }
 
   def getResult = {
@@ -122,7 +123,7 @@ class PlanningPokerController {
     if(countUsers != 0){
         result = [pourcentage:totalVotes/countUsers]
     }else{
-        result = [pourcentage:0]
+        result = [pourcentage:"?"]
     }
     render(status:200, contentType: 'application/json', text: result as JSON)
   }
@@ -199,7 +200,14 @@ class PlanningPokerController {
     vote.voteValue = Integer.parseInt(params.valueCard)
     if(vote.save(flush:true))
         println "vote saved :" + vote.voteValue
+    pushOthers "${params.product}-planningPoker-displayStatusOthers"
   }
+
+  def getVotes = {
+      def currentSession = PlanningPokerSession.findByProduct(Product.get(params.product))
+      render(status:200, text:[votes:currentSession.votes] as JSON)
+  }
+
   // Ã  corriger !!
   def button = {
     render(is.iconButton([action:"index",controller:id, onSuccess:"jQuery.icescrum.openWindow(\"planningPoker\");"],message(code:'is.ui.planningPoker')))

@@ -80,7 +80,7 @@
                 });
         },
 
-        startVote:function(product){
+        startVote:function(product, iduser){
             //Requete ajax pour enregistrer le vote par défault au début du compte à rebours
             $.ajax({type:'POST',
                 global:false,
@@ -89,6 +89,7 @@
                     product: product
                 },
                 success:function() {
+                    $.icescrum.planningpoker.displayStatusOthers(product, iduser);
                 }
             });
             //Affichage du compte à rebours
@@ -96,6 +97,7 @@
             $('#planning-poker-countdown').countDown({
 	            startNumber: 10,
 	            callBack: function() {
+                    //A la fin du compte à rebours
                     //Requete ajax pour checker si tout le monde a voté, si oui alors notifie tout le monde pour afficher le résultat
                     $.ajax({type:'POST',
                         global:false,
@@ -110,7 +112,7 @@
             });
         },
 
-        endOfCountDown:function(product){
+        endOfCountDown:function(product, iduser){
             //Requete ajax pour avoir le resultat du planning poker
             $.ajax({type:'POST',
                 global:false,
@@ -120,7 +122,54 @@
                 },
                 success:function(data) {
                     $('#planning-poker-table').html('');
+                    $.icescrum.planningpoker.displayResultOthers(product, iduser);
                     $("#planning-poker-final-estimate").html("<div class=\"planning-poker-carte-result  ui-corner-all\"><div class=\"estimation\">"+data.pourcentage+"</div></div>");
+
+                }
+            });
+        },
+
+        displayResultOthers:function(product, iduser){
+            $.ajax({type:'POST',
+                global:false,
+                url: $.icescrum.o.grailsServer + '/planningPoker/getVotes/',
+                data: {
+                    product: product
+                },
+                success:function(data) {
+                    data = $.parseJSON(data);
+                    for (var i = 0; i < data.votes.length; i++){
+                        if(data.votes[i].user.id != iduser){
+                            if(data.votes[i].voteValue == -1){
+                                $('#planning-poker-members-list-card-'+data.votes[i].user.id).html('?');
+                            }else{
+                                $('#planning-poker-members-list-card-'+data.votes[i].user.id).html(data.votes[i].voteValue);
+                            }
+                        }
+                    }
+                }
+            });
+        },
+
+        displayStatusOthers:function(product, iduser){
+            $.ajax({type:'POST',
+                global:false,
+                url: $.icescrum.o.grailsServer + '/planningPoker/getVotes/',
+                data: {
+                    product: product
+                },
+                success:function(data) {
+                    data = $.parseJSON(data);
+                    for (var i = 0; i < data.votes.length; i++){
+                        if(data.votes[i].user.id != iduser){
+                            if(data.votes[i].voteValue == -10){
+                                $('#planning-poker-members-list-card-'+data.votes[i].user.id).html('...');
+                            }else{
+                                if(data.votes[i].voteValue >= 0)
+                                    $('#planning-poker-members-list-card-'+data.votes[i].user.id).html('Ok');
+                            }
+                        }
+                    }
                 }
             });
         },

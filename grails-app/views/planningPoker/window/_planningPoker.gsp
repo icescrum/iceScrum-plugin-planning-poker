@@ -9,7 +9,7 @@
       <li>
         <is:avatar userid="${userWithVote.user.id}" class="ico"/><br/>
         ${userWithVote.user.firstName} ${userWithVote.user.lastName}
-        <div class="planning-poker-carte ui-corner-all">${userWithVote.voteValue}</div>
+        <div id="planning-poker-members-list-card-${userWithVote.user.id}" class="planning-poker-carte-others ui-corner-all">&nbsp;</div>
       </li>
     </g:each>
   </ul>
@@ -37,7 +37,13 @@
   <table id="planning-poker-card-list">
     <tr>
       <td class="planning-poker-card">
-        <div class="planning-poker-carte ui-corner-top me">?</div>
+        <is:link controller="planningPoker"
+            action="submitVote"
+            history="false"
+            remote="true"
+            params="[valueCard:-1]">
+            <div class="planning-poker-carte ui-corner-top me">?</div>
+        </is:link>
       </td>
       <g:each in="${suite_fibo}" var="n">
         <td class="planning-poker-card">
@@ -45,7 +51,8 @@
                 action="submitVote"
                 history="false"
                 remote="true"
-                params="[valueCard:n]">
+                params="[valueCard:n,
+                    product:params.product]">
                 <div class='planning-poker-carte ui-corner-top me'>${n}</div>
             </is:link>
         </td>
@@ -159,7 +166,7 @@
         listenOn="#window-content-planningPoker"/>
   <icep:notifications
         name="planningPokerWindow"
-        callback="jQuery.icescrum.planningpoker.startVote(${params.product});"
+        callback="jQuery.icescrum.planningpoker.startVote(${params.product}, ${me.id});"
         group="${params.product}-planningPoker-beginningOfCountDown"
         listenOn="#window-content-planningPoker"/>
   <icep:notifications
@@ -169,7 +176,12 @@
         listenOn="#window-content-planningPoker"/>
   <icep:notifications
         name="planningPokerWindow"
-        callback="jQuery.icescrum.planningpoker.endOfCountDown(${params.product});"
+        callback="jQuery.icescrum.planningpoker.endOfCountDown(${params.product}, ${me.id});"
         group="${params.product}-planningPoker-endOfCountDown"
+        listenOn="#window-content-planningPoker"/>
+  <icep:notifications
+        name="planningPokerWindow"
+        callback="jQuery.icescrum.planningpoker.displayStatusOthers(${params.product}, ${me.id});"
+        group="${params.product}-planningPoker-displayStatusOthers"
         listenOn="#window-content-planningPoker"/>
 </jq:jquery>

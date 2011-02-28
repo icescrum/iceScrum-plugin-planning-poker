@@ -13,7 +13,7 @@ jQuery.fn.countDown = function(settings,to) {
 		if(!to && to != settings.endNumber) { to = settings.startNumber; }
 
 		//set the countdown to the starting number
-        $(this).text(to).css({'fontSize':settings.startFontSize, 'color':'white', 'font-weight':'bold', 'font-family':'"Comic Sans MS", serif', 'width':'100%', 'text-align':'center', 'margin-top':'2%'});
+        $(this).text(to).css({'fontSize':settings.startFontSize, 'color':'white', 'font-weight':'bold', 'font-family':'"Comic Sans MS", serif', 'width':'100%', 'text-align':'center', 'padding-top':'10px'});
 
 		//loopage
 		$(this).animate({
