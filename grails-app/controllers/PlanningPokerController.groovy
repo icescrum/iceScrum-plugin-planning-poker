@@ -52,6 +52,8 @@ class PlanningPokerController {
 
   @Secured('scrumMaster()')
   def start = {
+    def currentSession = PlanningPokerSession.findByProduct(Product.get(params.product))
+    currentSession?.delete()
     PlanningPokerSession session = new PlanningPokerSession(product:Product.get(params.product))
     if(session.save())
         println "session created"
@@ -64,7 +66,65 @@ class PlanningPokerController {
   }
 
   def endOfCountDown = {
-      push  "${params.product}-planningPoker-endOfCountDown"
+    //Fin du compte à rebours, enregistre -1
+    //Si il reste des votes à -10 alors certain non pas fini leur compte à rebours
+    //Si tout le monde a fini le compte à rebours push tout le monde pour afficher le résultat du planning poker
+    User currentUser = User.get(springSecurityService.principal.id)
+    def currentSession = PlanningPokerSession.findByProduct(Product.get(params.product))
+    def vote
+    currentSession.votes.each{
+      if(it.user == currentUser)
+        vote = it;
+    }
+    if(vote.voteValue == -10)
+        vote.voteValue = -1
+    if(vote.save(flush:true))
+        println "vote saved :" + vote.voteValue
+    def fini = true
+    currentSession = PlanningPokerSession.findByProduct(Product.get(params.product))
+    currentSession.votes.each{
+      if(fini && it.voteValue == -10 && it.user != currentUser){
+        fini = false
+      }
+    }
+    if(fini){
+        push  "${params.product}-planningPoker-endOfCountDown"
+    }
+  }
+
+  def saveVoteBeginning = {
+    //Enregistre par défault -10 au début du compte à rebours
+    User currentUser = User.get(springSecurityService.principal.id)
+    def currentSession = PlanningPokerSession.findByProduct(Product.get(params.product))
+    def vote
+    currentSession.votes.each{
+      if(it.user == currentUser)
+        vote = it;
+    }
+    if(vote == null)
+        vote = new PlanningPokerVote(user:currentUser, session:currentSession)
+    vote.voteValue = -10
+    if(vote.save(flush:true))
+        println "vote saved :" + vote.voteValue
+  }
+
+  def getResult = {
+    def currentSession = PlanningPokerSession.findByProduct(Product.get(params.product))
+    int totalVotes = 0
+    int countUsers = 0
+    currentSession.votes.each{
+      if(it.voteValue >= 0){
+        totalVotes += it.voteValue
+        countUsers ++
+      }
+    }
+    def result
+    if(countUsers != 0){
+        result = [pourcentage:totalVotes/countUsers]
+    }else{
+        result = [pourcentage:0]
+    }
+    render(status:200, contentType: 'application/json', text: result as JSON)
   }
 
   def display = {

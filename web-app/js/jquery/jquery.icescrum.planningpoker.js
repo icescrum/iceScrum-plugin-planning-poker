@@ -80,16 +80,23 @@
                 });
         },
 
-        showResult:function(){
-            $("#planning-poker-final-estimate").html("<div class=\"planning-poker-carte-result  ui-corner-all\"><div class=\"estimation\">17</div></div>");
-            //<is:planningPokerFinalEstimate number=\"16\"/>
-        },
-
         startVote:function(product){
+            //Requete ajax pour enregistrer le vote par défault au début du compte à rebours
+            $.ajax({type:'POST',
+                global:false,
+                url: $.icescrum.o.grailsServer + '/planningPoker/saveVoteBeginning/',
+                data: {
+                    product: product
+                },
+                success:function() {
+                }
+            });
+            //Affichage du compte à rebours
             $('#planning-poker-table').html('<div id="planning-poker-countdown"></div>');
             $('#planning-poker-countdown').countDown({
 	            startNumber: 10,
 	            callBack: function() {
+                    //Requete ajax pour checker si tout le monde a voté, si oui alors notifie tout le monde pour afficher le résultat
                     $.ajax({type:'POST',
                         global:false,
                         url: $.icescrum.o.grailsServer + '/planningPoker/endOfCountDown/',
@@ -103,8 +110,19 @@
             });
         },
 
-        endOfCountDown:function(){
-           //alert("fin du compte à rebours");
+        endOfCountDown:function(product){
+            //Requete ajax pour avoir le resultat du planning poker
+            $.ajax({type:'POST',
+                global:false,
+                url: $.icescrum.o.grailsServer + '/planningPoker/getResult/',
+                data: {
+                    product: product
+                },
+                success:function(data) {
+                    $('#planning-poker-table').html('');
+                    $("#planning-poker-final-estimate").html("<div class=\"planning-poker-carte-result  ui-corner-all\"><div class=\"estimation\">"+data.pourcentage+"</div></div>");
+                }
+            });
         },
 
         closePlanningPoker:function(){

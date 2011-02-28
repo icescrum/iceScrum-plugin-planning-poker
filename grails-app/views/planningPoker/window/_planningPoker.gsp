@@ -169,7 +169,7 @@
         listenOn="#window-content-planningPoker"/>
   <icep:notifications
         name="planningPokerWindow"
-        callback="jQuery.icescrum.planningpoker.endOfCountDown();"
+        callback="jQuery.icescrum.planningpoker.endOfCountDown(${params.product});"
         group="${params.product}-planningPoker-endOfCountDown"
         listenOn="#window-content-planningPoker"/>
 </jq:jquery>
