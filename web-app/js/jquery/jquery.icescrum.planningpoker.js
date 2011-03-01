@@ -20,7 +20,6 @@
         },
 
         init:function(product){
-
              var self = this;
              var o = self.o;
             o.product = product;
@@ -74,7 +73,8 @@
                 });
         },
 
-        startVote:function(product, iduser){
+        startVote:function(iduser){
+            var product = this.o.product;
             //Requete ajax pour enregistrer le vote par d�fault au d�but du compte � rebours
             $.ajax({type:'POST',
                 global:false,
@@ -106,7 +106,8 @@
             });
         },
 
-        endOfCountDown:function(product, iduser){
+        endOfCountDown:function(iduser){
+            var product = this.o.product;
             //Requete ajax pour avoir le resultat du planning poker
             $.ajax({type:'POST',
                 global:false,
@@ -123,7 +124,8 @@
             });
         },
 
-        displayResultOthers:function(product, iduser){
+        displayResultOthers:function(iduser){
+            var product = this.o.product;
             $.ajax({type:'POST',
                 global:false,
                 url: $.icescrum.o.grailsServer + '/planningPoker/getVotes/',
@@ -145,7 +147,8 @@
             });
         },
 
-        displayStatusOthers:function(product, iduser){
+        displayStatusOthers:function(iduser){
+            var product = this.o.product;
             $.ajax({type:'POST',
                 global:false,
                 url: $.icescrum.o.grailsServer + '/planningPoker/getVotes/',
@@ -182,7 +185,7 @@
             o.acceptedStoriesListWidth = o.storyWidth * $("#accepted-list .postit-story").size();
 
 
-            $("#accepted-list .postit-story").
+            //$("#accepted-list .postit-story").
             $('#accepted-list').css({width: o.acceptedStoriesListWidth });
             $('#estimated-list').css({width: o.estimatedStoriesListWidth });
 

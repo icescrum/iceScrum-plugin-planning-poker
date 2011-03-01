@@ -63,8 +63,7 @@ class PlanningPokerController {
 
   def startVote = {
     push  "${params.product}-planningPoker-beginningOfCountDown"
-     render(status:200)
-
+    render(status:200)
   }
 
   def endOfCountDown = {
@@ -113,8 +112,8 @@ class PlanningPokerController {
 
   def getResult = {
     def currentSession = PlanningPokerSession.findByProduct(Product.get(params.product))
-    int totalVotes = 0
-    int countUsers = 0
+    float totalVotes = 0
+    float countUsers = 0
     currentSession.votes.each{
       if(it.voteValue >= 0){
         totalVotes += it.voteValue
@@ -123,7 +122,7 @@ class PlanningPokerController {
     }
     def result
     if(countUsers != 0){
-        result = [pourcentage:totalVotes/countUsers]
+        result = [pourcentage:(totalVotes/countUsers).round(1)]
     }else{
         result = [pourcentage:"?"]
     }

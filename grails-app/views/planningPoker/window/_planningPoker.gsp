@@ -148,7 +148,6 @@
 <jq:jquery>
   jQuery.icescrum.planningpoker.init(${params.product});
 
-
   <is:renderNotice />
   <icep:notifications
         name="planningPokerWindow"
@@ -167,7 +166,7 @@
         listenOn="#window-content-planningPoker"/>
   <icep:notifications
         name="planningPokerWindow"
-        callback="jQuery.icescrum.planningpoker.startVote(${params.product}, ${me.id});"
+        callback="jQuery.icescrum.planningpoker.startVote(${me.id});"
         group="${params.product}-planningPoker-beginningOfCountDown"
         listenOn="#window-content-planningPoker"/>
   <icep:notifications
@@ -177,12 +176,12 @@
         listenOn="#window-content-planningPoker"/>
   <icep:notifications
         name="planningPokerWindow"
-        callback="jQuery.icescrum.planningpoker.endOfCountDown(${params.product}, ${me.id});"
+        callback="jQuery.icescrum.planningpoker.endOfCountDown(${me.id});"
         group="${params.product}-planningPoker-endOfCountDown"
         listenOn="#window-content-planningPoker"/>
   <icep:notifications
         name="planningPokerWindow"
-        callback="jQuery.icescrum.planningpoker.displayStatusOthers(${params.product}, ${me.id});"
+        callback="jQuery.icescrum.planningpoker.displayStatusOthers(${me.id});"
         group="${params.product}-planningPoker-displayStatusOthers"
         listenOn="#window-content-planningPoker"/>
 </jq:jquery>
