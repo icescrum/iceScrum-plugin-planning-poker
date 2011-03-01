@@ -9,12 +9,12 @@ import icescrum.plugin.planning.poker.PlanningPokerSession
 import grails.plugins.springsecurity.Secured
 import grails.converters.JSON
 
+@Secured('inProduct()')
 class PlanningPokerController {
 
   static ui = true
   static final pluginName = 'icescrum-plugin-planning-poker'
   static final id = 'planningPoker'
-  static menuBar = [show:[visible:true,pos:0],title:'is.ui.planningPoker']
   static window = [title:'is.ui.planningPoker',help:'is.ui.planningPoker.help',toolbar:true]
 
   static stateBundle = [
@@ -212,8 +212,7 @@ class PlanningPokerController {
       render(status:200, text:[votes:currentSession.votes] as JSON)
   }
 
-  // à corriger !!
   def button = {
-    render(is.iconButton([action:"index",controller:id, onSuccess:"jQuery.icescrum.openWindow(\"planningPoker\");"],message(code:'is.ui.planningPoker')))
+    render(is.separator() + is.iconButton([action:"index",controller:id, onSuccess:"jQuery.icescrum.openWindow('planningPoker');"],message(code:'is.ui.planningPoker')))
   }
 }
