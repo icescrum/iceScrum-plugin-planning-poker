@@ -14,19 +14,22 @@
             id: null,
             storyWidth:null,
             estimatedStoriesListWidth:null,
-            acceptedStoriesListWidth:null
+            acceptedStoriesListWidth:null,
+            product:null
 
         },
 
-        init:function(){
+        init:function(product){
+
              var self = this;
              var o = self.o;
+            o.product =  product;
             o.storyWidth= $(".postit.story").width();
             o.windowWidth = $('.window-content').width();
             o.estimatedStoriesListWidth = o.storyWidth * $("#estimated-list .postit-story").size();
 
             o.acceptedStoriesListWidth = o.storyWidth * $("#accepted-list .postit-story").size();
-
+             $("#accepted-list .postit-story").
              $('#accepted-list').css({width: o.acceptedStoriesListWidth });
             $('#estimated-list').css({width: o.estimatedStoriesListWidth });
 
@@ -41,8 +44,8 @@
             $("#window-content-${id}").removeClass('window-content-toolbar');
   if(!$("#dropmenu").is(':visible')){
     $("#window-id-${id}").focus();
-  }
 
+  }
         },
 
         notifyPlanningPoker:function(product){
@@ -176,6 +179,23 @@
 
         closePlanningPoker:function(){
              jQuery.icescrum.openWindow('project');
+        } ,
+
+        selectStory:function(ui,idSelect){
+            var elem = ui;
+            var o = this.o;
+            //Requete ajax pour avoir le resultat du planning poker
+            $.ajax({type:'POST',
+                global:false,
+                url: $.icescrum.o.grailsServer + '/planningPoker/selectStory/',
+                data: {
+                    product: o.product,
+                    story:idSelect
+                },
+                success:function() {
+                  $(elem).addClass("selected ui-corner-all").siblings().removeClass("selected ui-corner-all");
+                }
+            });
         }
     });
 

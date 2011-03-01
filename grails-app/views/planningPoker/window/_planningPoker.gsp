@@ -76,7 +76,7 @@
           selectable="[rendered:scrumMaster,
                  filter:'.postit',
                  cancel:'.postit-label, .postit-story, a',
-                 selected:'\$.icescrum.dblclickSelectable(ui,300,function(obj){'+is.quickLook(params:'\'story.id=\'+\$(obj.selected).icescrum(\'postit\').id()')+';})']">
+                 selected:'$(\'.postit\').click(function(){console.log(this);});']">
 
     <g:each in="${stories_ne}" var="story">
       <div style="float:left" class="accepted-list">
@@ -101,7 +101,8 @@
                     title="${story.name?.encodeAsHTML()}"
                     text="${is.storyTemplate([story:story])} "
                     apiBeforeShow="if(\$('#dropmenu').is(':visible') || \$('#postit-select-suite').is(':visible')){return false;}"
-                    container="\$('#window-content-${id}')"/>
+                    container="\$('#window-content-${id}')"
+            />
           </g:if>
         </is:postit>
       </div>
@@ -145,7 +146,7 @@
 
 
 <jq:jquery>
-  jQuery.icescrum.planningpoker.init();
+  jQuery.icescrum.planningpoker.init(${params.product});
 
 
   <is:renderNotice />

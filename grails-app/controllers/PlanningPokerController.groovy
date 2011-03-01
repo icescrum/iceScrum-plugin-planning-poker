@@ -63,6 +63,8 @@ class PlanningPokerController {
 
   def startVote = {
     push  "${params.product}-planningPoker-beginningOfCountDown"
+     render(status:200)
+
   }
 
   def endOfCountDown = {
@@ -181,6 +183,7 @@ class PlanningPokerController {
     currentSession.story = Story.get(params.story)
     currentSession.save(flush:true)
     pushOthers "${params.product}-planningPoker-selection-story"
+    render(status:200)
   }
 
   def getStory = {
@@ -201,6 +204,7 @@ class PlanningPokerController {
     if(vote.save(flush:true))
         println "vote saved :" + vote.voteValue
     pushOthers "${params.product}-planningPoker-displayStatusOthers"
+      render(status:200)
   }
 
   def getVotes = {

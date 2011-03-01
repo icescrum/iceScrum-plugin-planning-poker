@@ -13,7 +13,7 @@ class PlanningPokerTagLib {
               stop: attrs.selectable.stop,
       ]
       def opts = selectableOptions.findAll {k, v -> v}.collect {k, v -> " $k:$v" }.join(',')
-      jqCode += " \$('#${attrs.id } div').selectable({${opts}});  \$('#accepted-list .accepted-list').click(function() {\$(this).addClass(\"selected ui-corner-all\").siblings().removeClass(\"selected ui-corner-all\");}); "
+      jqCode += " \$('#${attrs.id } div').selectable({${opts}});  \$('#accepted-list .accepted-list').click(function() {\$.icescrum.planningpoker.selectStory(this, \$(this).find('div').attr('elemid'));}); "
 
     }
 
