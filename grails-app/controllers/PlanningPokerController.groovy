@@ -68,9 +68,9 @@ class PlanningPokerController {
   }
 
   def endOfCountDown = {
-    //Fin du compte à rebours, enregistre -1 si l'utilisateur n'a pas voté
-    //Si il reste des votes à -10 alors certain non pas fini leur compte à rebours
-    //Si tout le monde a fini le compte à rebours push tout le monde pour afficher le résultat du planning poker
+    //Fin du compte ï¿½ rebours, enregistre -1 si l'utilisateur n'a pas votï¿½
+    //Si il reste des votes ï¿½ -10 alors certain non pas fini leur compte ï¿½ rebours
+    //Si tout le monde a fini le compte ï¿½ rebours push tout le monde pour afficher le rï¿½sultat du planning poker
     User currentUser = User.get(springSecurityService.principal.id)
     def currentSession = PlanningPokerSession.findByProduct(Product.get(params.product))
     def vote
@@ -95,7 +95,7 @@ class PlanningPokerController {
   }
 
   def saveVoteBeginning = {
-    //Enregistre par défault -10 au début du compte à rebours
+    //Enregistre par dï¿½fault -10 au dï¿½but du compte ï¿½ rebours
     User currentUser = User.get(springSecurityService.principal.id)
     def currentSession = PlanningPokerSession.findByProduct(Product.get(params.product))
     def vote
@@ -182,14 +182,14 @@ class PlanningPokerController {
     def currentSession = PlanningPokerSession.findByProduct(Product.get(params.product))
     currentSession.story = Story.get(params.story)
     currentSession.save(flush:true)
-    pushOthers "${params.product}-planningPoker-selection-story"
+    push "${params.product}-planningPoker-selection-story"
     render(status:200)
   }
 
   def getStory = {
     def currentSession = PlanningPokerSession.findByProduct(Product.get(params.product))
     def story = currentSession.story
-    render(status:200, story as JSON)
+    render(status:200, text:[story:story] as JSON)
   }
 
   def submitVote = {

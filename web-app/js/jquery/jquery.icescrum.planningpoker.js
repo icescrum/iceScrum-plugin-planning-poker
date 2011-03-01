@@ -77,14 +77,14 @@
                         product: product
                     },
                     success:function(data) {
-                        data: $.parseJSON(data),
-                        $("planning-poker-table").html("Story selectionnee : " + data.story );
+                        data = $.parseJSON(data);
+                        $("#planning-poker-table").html("Story selectionnee : " + data.story.id );
                     }
                 });
         },
 
         startVote:function(product, iduser){
-            //Requete ajax pour enregistrer le vote par défault au début du compte à rebours
+            //Requete ajax pour enregistrer le vote par dï¿½fault au dï¿½but du compte ï¿½ rebours
             $.ajax({type:'POST',
                 global:false,
                 url: $.icescrum.o.grailsServer + '/planningPoker/saveVoteBeginning/',
@@ -95,13 +95,13 @@
                     $.icescrum.planningpoker.displayStatusOthers(product, iduser);
                 }
             });
-            //Affichage du compte à rebours
+            //Affichage du compte ï¿½ rebours
             $('#planning-poker-table').html('<div id="planning-poker-countdown"></div>');
             $('#planning-poker-countdown').countDown({
 	            startNumber: 10,
 	            callBack: function() {
-                    //A la fin du compte à rebours
-                    //Requete ajax pour checker si tout le monde a voté, si oui alors notifie tout le monde pour afficher le résultat
+                    //A la fin du compte ï¿½ rebours
+                    //Requete ajax pour checker si tout le monde a votï¿½, si oui alors notifie tout le monde pour afficher le rï¿½sultat
                     $.ajax({type:'POST',
                         global:false,
                         url: $.icescrum.o.grailsServer + '/planningPoker/endOfCountDown/',
