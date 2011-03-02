@@ -75,17 +75,7 @@
 
         startVote:function(iduser){
             var product = this.o.product;
-            //Requete ajax pour enregistrer le vote par d�fault au d�but du compte � rebours
-            $.ajax({type:'POST',
-                global:false,
-                url: $.icescrum.o.grailsServer + '/planningPoker/saveVoteBeginning/',
-                data: {
-                    product: product
-                },
-                success:function() {
-                    $.icescrum.planningpoker.displayStatusOthers(product, iduser);
-                }
-            });
+            $.icescrum.planningpoker.displayStatusOthers(product, iduser);
             //Affichage du compte � rebours
             $('#planning-poker-table').html('<div id="planning-poker-countdown"></div>');
             $('#planning-poker-countdown').countDown({

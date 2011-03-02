@@ -33,35 +33,30 @@ class PlanningPokerController {
   ]
 
   def springSecurityService
+  def planningPokerService
 
   def index = {
-    def currentSession = PlanningPokerSession.findByProduct(Product.get(params.product))
-    if(currentSession)
+    if(planningPokerService.getCurrentSession(params.product))
         forward(action:'display', params:[product:params.product])
     else
         render(template:'window/blank',plugin:pluginName ,model:[id:id])
   }
 
   def join = {
-    User currentUser = User.get(springSecurityService.principal.id)
-    def currentSession = PlanningPokerSession.findByProduct(Product.get(params.product))
-    PlanningPokerVote vote = new PlanningPokerVote(user:currentUser, session:currentSession)
-    vote.save(flush:true)
+    planningPokerService.createVote(params.product, springSecurityService.principal.id)
     redirect(action:'display', params:[product:params.product])
   }
 
   @Secured('scrumMaster()')
   def start = {
-    def currentSession = PlanningPokerSession.findByProduct(Product.get(params.product))
-    currentSession?.delete()
-    PlanningPokerSession session = new PlanningPokerSession(product:Product.get(params.product))
-    if(session.save())
-        println "session created"
+    planningPokerService.createSession(params.product)
+    planningPokerService.createVote(params.product, springSecurityService.principal.id)
     pushOthers  "${params.product}-plugin-planning-poker"
     redirect(action:'display', params:[product:params.product])
   }
 
   def startVote = {
+    planningPokerService.initVotes(params.product)
     push  "${params.product}-planningPoker-beginningOfCountDown"
     render(status:200)
   }
@@ -91,23 +86,6 @@ class PlanningPokerController {
     if(fini){
         push  "${params.product}-planningPoker-endOfCountDown"
     }
-  }
-
-  def saveVoteBeginning = {
-    //Enregistre par d�fault -10 au d�but du compte � rebours
-    User currentUser = User.get(springSecurityService.principal.id)
-    def currentSession = PlanningPokerSession.findByProduct(Product.get(params.product))
-    def vote
-    currentSession.votes.each{
-      if(it.user == currentUser)
-        vote = it;
-    }
-    if(vote == null)
-        vote = new PlanningPokerVote(user:currentUser, session:currentSession)
-    vote.voteValue = -10
-    if(vote.save(flush:true))
-        println "vote saved :" + vote.voteValue
-    render(status:200)
   }
 
   def getResult = {
@@ -173,42 +151,28 @@ class PlanningPokerController {
 
   def close = {
     pushOthers "${params.product}-planningPoker-close"
+    planningPokerService.deleteSession(params.product)
     render(status:200)
   }
 
   def selectStory = {
-    println "PP : story selected"
-    def currentSession = PlanningPokerSession.findByProduct(Product.get(params.product))
-    currentSession.story = Story.get(params.story)
-    currentSession.save(flush:true)
+    planningPokerService.setStory(params.product, params.story)
     push "${params.product}-planningPoker-selection-story"
     render(status:200)
   }
 
   def getStory = {
-    def currentSession = PlanningPokerSession.findByProduct(Product.get(params.product))
-    def story = currentSession.story
-    render(status:200, text:[story:story] as JSON)
+    render(status:200, text:[story:planningPokerService.getStory(params.product)] as JSON)
   }
 
   def submitVote = {
-    User currentUser = User.get(springSecurityService.principal.id)
-    def currentSession = PlanningPokerSession.findByProduct(Product.get(params.product))
-    def vote
-    currentSession.votes.each{
-      if(it.user == currentUser)
-        vote = it;
-    }
-    vote.voteValue = Integer.parseInt(params.valueCard)
-    if(vote.save(flush:true))
-        println "vote saved :" + vote.voteValue
+    planningPokerService.setVote(params.product, springSecurityService.principal.id, Integer.parseInt(params.valueCard) )
     pushOthers "${params.product}-planningPoker-displayStatusOthers"
-      render(status:200)
+    render(status:200)
   }
 
   def getVotes = {
-      def currentSession = PlanningPokerSession.findByProduct(Product.get(params.product))
-      render(status:200, text:[votes:currentSession.votes] as JSON)
+    render(status:200, text:[votes:planningPokerService.getVotes(params.product)] as JSON)
   }
 
   def button = {
