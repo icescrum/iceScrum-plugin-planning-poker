@@ -68,7 +68,7 @@
                     },
                     success:function(data) {
                         data = $.parseJSON(data);
-                        $("#planning-poker-table" + data.story.id ).addClass("selected ui-corner-all").siblings().removeClass("selected ui-corner-all");
+                        $("#postit-story-"+data.story.id ).addClass("selected ui-corner-all").siblings().removeClass("selected ui-corner-all");
                     }
                 });
         },
