@@ -77,6 +77,7 @@
         startVote:function(iduser) {
             var product = this.o.product;
             $.icescrum.planningpoker.displayStatusOthers(product, iduser);
+           $('#accepted-list .accepted-list').selectable("disable");
             //Affichage du compte � rebours
             $('#planning-poker-table').html('<div id="planning-poker-countdown"></div>');
             $('#planning-poker-countdown').countDown({
@@ -95,6 +96,7 @@
                     });
                 }
             });
+
         },
 
         endOfCountDown:function(iduser) {
