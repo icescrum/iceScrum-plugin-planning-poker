@@ -1,7 +1,9 @@
+<g:set var="scrumMaster" value="${sec.access([expression:'scrumMaster()'], {true})}"/>
+
 <div class="planning-poker-right">
 <is:iconButton
           action="close"
-          rendered="${productOwner}"
+          rendered="${scrumMaster}"
           controller="${id}"
           history="false"
           title="${message(code:'is.ui.planningPoker.toolbar.alt.close')}"

@@ -1,6 +1,5 @@
 <r:use module="planningPoker"/>
 <g:set var="scrumMaster" value="${sec.access([expression:'scrumMaster()'], {true})}"/>
-<g:set var="productOwner" value="${sec.access([expression:'productOwner()'], {true})}"/>
 
 <div id="jeu">
 
@@ -20,6 +19,7 @@
              type="link"
                history="false"
                remote="true"
+               rendered="${scrumMaster}"
                controller="planningPoker"
                button="button-s button-s-light"
                action="startVote"

@@ -99,12 +99,14 @@ class PlanningPokerController {
             id:id,])
   }
 
+  @Secured('scrumMaster()')
   def close = {
     pushOthers "${params.product}-planningPoker-close"
     planningPokerService.deleteSession(params.product)
     render(status:200)
   }
 
+  @Secured('scrumMaster()')
   def selectStory = {
     planningPokerService.setStory(params.product, params.story)
     push "${params.product}-planningPoker-selection-story"

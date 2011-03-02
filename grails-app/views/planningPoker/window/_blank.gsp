@@ -8,6 +8,7 @@
       <td>
         <is:button
             type="link"
+            rendered="${scrumMaster}"
             history="false"
             remote="true"
             controller="planningPoker"
