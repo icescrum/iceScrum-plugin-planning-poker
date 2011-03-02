@@ -36,6 +36,7 @@
                 $(window).resize(this._resize);
 
             }
+            $("#voteButton").hide();
         },
 
         notifyPlanningPoker:function(product) {
@@ -169,7 +170,7 @@
             o.windowWidth = $('.window-content').width();
             o.windowHeight = $('.window-content').height();
 
-            $('.window-content #jeu').css({height: o.windowHeight - $('.window-content #stories').height() + 'px'})
+            $('.window-content #jeu').css({height: o.windowHeight - $('.window-content #stories').height()-1 + 'px'})
             o.estimatedStoriesListWidth = o.storyWidth * $("#estimated-list .postit-story").size();
 
             o.acceptedStoriesListWidth = o.storyWidth * $("#accepted-list .postit-story").size();
@@ -202,6 +203,7 @@
                 },
                 success:function() {
                     $(elem).addClass("selected ui-corner-all").siblings().removeClass("selected ui-corner-all");
+                    $("#voteButton").show();
                 }
             });
         }
