@@ -5,11 +5,11 @@
 <div id="jeu">
 
   <ul id="planning-poker-members-list">
-    <g:each in="${usersWithVote}" var="userWithVote">
+    <g:each in="${projectMembers}" var="projectMember">
       <li>
-        <is:avatar userid="${userWithVote.user.id}" class="ico"/><br/>
-        ${userWithVote.user.firstName} ${userWithVote.user.lastName}
-        <div id="planning-poker-members-list-card-${userWithVote.user.id}" class="planning-poker-carte-others ui-corner-all">&nbsp;</div>
+        <is:avatar userid="${projectMember.id}" class="ico"/><br/>
+        ${projectMember.firstName} ${projectMember.lastName}
+        <div id="planning-poker-members-list-card-${projectMember.id}" class="planning-poker-carte-others ui-corner-all">&nbsp;</div>
       </li>
     </g:each>
   </ul>

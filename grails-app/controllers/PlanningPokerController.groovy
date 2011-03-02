@@ -3,8 +3,6 @@ import org.icescrum.core.domain.Product
 import org.icescrum.core.domain.PlanningPokerGame
 import org.icescrum.core.domain.Story
 
-import icescrum.plugin.planning.poker.PlanningPokerSession
-
 import grails.plugins.springsecurity.Secured
 import grails.converters.JSON
 
@@ -36,9 +34,9 @@ class PlanningPokerController {
 
   def index = {
     if(planningPokerService.getSession(params.product))
-        forward(action:'display', params:[product:params.product])
+      forward(action:'display', params:[product:params.product])
     else
-        render(template:'window/blank',plugin:pluginName ,model:[id:id])
+      render(template:'window/blank',plugin:pluginName ,model:[id:id])
   }
 
   def join = {
@@ -62,9 +60,9 @@ class PlanningPokerController {
 
   def endOfCountDown = {
     if(!planningPokerService.hasVoted(params.product, springSecurityService.principal.id))
-        planningPokerService.setUnvoted(params.product, springSecurityService.principal.id)
+      planningPokerService.setUnvoted(params.product, springSecurityService.principal.id)
     if(planningPokerService.isVoteTerminated(params.product))
-        push  "${params.product}-planningPoker-endOfCountDown"
+      push  "${params.product}-planningPoker-endOfCountDown"
   }
 
   def getResult = {
@@ -74,6 +72,8 @@ class PlanningPokerController {
   def display = {
 
     def currentProduct = Product.get(params.product)
+    def storiesEstimees = Story.findAllByBacklogAndState(currentProduct, Story.STATE_ESTIMATED, [cache:true, sort:'rank'])
+    def storiesNonEstimees = Story.findAllByBacklogAndState(currentProduct, Story.STATE_ACCEPTED, [cache:true, sort:'rank'])
 
     def projectMembers = currentProduct.getAllUsers()
     def pop=false
@@ -83,29 +83,15 @@ class PlanningPokerController {
         projectMembers.remove(i)
       }
     }
-    def usersWithVote = []
-    def currentSession = PlanningPokerSession.findByProduct(Product.get(params.product))
-    projectMembers.each{
-      def memberSearched = it ;
-      def voteValue = null ;
-      currentSession?.votes.each{
-        if(it.user == memberSearched)
-         voteValue = it.voteValue
-        }
-        usersWithVote.add(user:memberSearched,voteValue:voteValue)
-    }
-
-    def storiesEstimees = Story.findAllByBacklogAndState(currentProduct, Story.STATE_ESTIMATED,  [cache: true, sort: 'rank'])
-    def storiesNonEstimees = Story.findAllByBacklogAndState(currentProduct, Story.STATE_ACCEPTED,  [cache: true, sort: 'rank'])
 
     def suite
     if(currentProduct.planningPokerGameType == PlanningPokerGame.FIBO_SUITE)
-         suite = PlanningPokerGame.getInteger(PlanningPokerGame.FIBO_SUITE)
+      suite = PlanningPokerGame.getInteger(PlanningPokerGame.FIBO_SUITE)
     else
-         suite = PlanningPokerGame.getInteger(PlanningPokerGame.INTEGER_SUITE)
+      suite = PlanningPokerGame.getInteger(PlanningPokerGame.INTEGER_SUITE)
 
     render(template:'window/planningPoker',plugin:pluginName ,model:[
-            usersWithVote:usersWithVote,
+            projectMembers:projectMembers,
             me: User.get(springSecurityService.principal.id),
             suite_fibo:suite,
             stories_e:storiesEstimees,

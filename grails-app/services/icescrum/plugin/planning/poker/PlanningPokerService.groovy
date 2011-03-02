@@ -6,8 +6,6 @@ import org.icescrum.core.domain.Story
 
 class PlanningPokerService {
 
-    //static transactional = true
-
     def VALUE_BEFORE_VOTE = -10;
     def VALUE_UNVOTED = -1;
 
@@ -23,7 +21,7 @@ class PlanningPokerService {
     }
 
     def deleteSession(productid) {
-        getSession(productid).delete()
+        getSession(productid)?.delete()
     }
 
     def setStory(productid, storyid) {
@@ -83,11 +81,12 @@ class PlanningPokerService {
     }
 
     def isVoteTerminated (productid) {
+        def terminated = true
         getVotes(productid).each{
             if(it.voteValue == VALUE_BEFORE_VOTE)
-                return false
+                terminated = false
         }
-        return true
+        return terminated
     }
 
     def printVotes (commentaire) {
