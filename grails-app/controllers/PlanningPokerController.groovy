@@ -68,22 +68,7 @@ class PlanningPokerController {
   }
 
   def getResult = {
-    def currentSession = PlanningPokerSession.findByProduct(Product.get(params.product))
-    float totalVotes = 0
-    float countUsers = 0
-    currentSession.votes.each{
-      if(it.voteValue >= 0){
-        totalVotes += it.voteValue
-        countUsers ++
-      }
-    }
-    def result
-    if(countUsers != 0){
-        result = [pourcentage:(totalVotes/countUsers).round(1)]
-    }else{
-        result = [pourcentage:"?"]
-    }
-    render(status:200, contentType: 'application/json', text: result as JSON)
+    render(status:200, contentType: 'application/json', text:[pourcentage:planningPokerService.getResult(params.product)] as JSON)
   }
 
   def display = {

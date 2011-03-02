@@ -96,4 +96,20 @@ class PlanningPokerService {
             println it.user.username + ": " + it.voteValue
         }
     }
+
+    def getResult (productid) {
+        def votes = getVotes(productid)
+        float totalVotes = 0
+        float nbVotes = 0
+        votes.each{
+            if(it.voteValue >= 0) {
+                totalVotes += it.voteValue
+                nbVotes ++
+            }
+        }
+        String result = "?"
+        if(nbVotes > 0)
+            result = String.valueOf((totalVotes/nbVotes).round(1))
+        return result
+    }
 }
