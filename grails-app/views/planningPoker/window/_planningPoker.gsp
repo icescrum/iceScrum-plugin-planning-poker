@@ -76,7 +76,7 @@
           selectable="[rendered:scrumMaster,
                  filter:'.postit',
                  cancel:'.postit-label, .postit-story, a',
-                 selected:'$(\'.postit\').click(function(){console.log(this);});']">
+                 selected:'\$.icescrum.planningpoker.selectStory(this, \$(this).find(\'div\').attr(\'elemid\'));']">
 
     <g:each in="${stories_ne}" var="story">
       <div style="float:left" class="accepted-list">
