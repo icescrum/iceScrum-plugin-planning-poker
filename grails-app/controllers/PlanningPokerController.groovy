@@ -3,7 +3,6 @@ import org.icescrum.core.domain.Product
 import org.icescrum.core.domain.PlanningPokerGame
 import org.icescrum.core.domain.Story
 
-import icescrum.plugin.planning.poker.PlanningPokerVote
 import icescrum.plugin.planning.poker.PlanningPokerSession
 
 import grails.plugins.springsecurity.Secured
@@ -36,7 +35,7 @@ class PlanningPokerController {
   def planningPokerService
 
   def index = {
-    if(planningPokerService.getCurrentSession(params.product))
+    if(planningPokerService.getSession(params.product))
         forward(action:'display', params:[product:params.product])
     else
         render(template:'window/blank',plugin:pluginName ,model:[id:id])
@@ -62,30 +61,10 @@ class PlanningPokerController {
   }
 
   def endOfCountDown = {
-    //Fin du compte � rebours, enregistre -1 si l'utilisateur n'a pas vot�
-    //Si il reste des votes � -10 alors certain non pas fini leur compte � rebours
-    //Si tout le monde a fini le compte � rebours push tout le monde pour afficher le r�sultat du planning poker
-    User currentUser = User.get(springSecurityService.principal.id)
-    def currentSession = PlanningPokerSession.findByProduct(Product.get(params.product))
-    def vote
-    currentSession.votes.each{
-      if(it.user == currentUser)
-        vote = it;
-    }
-    if(vote.voteValue == -10)
-        vote.voteValue = -1
-    if(vote.save(flush:true))
-        println "vote saved :" + vote.voteValue
-    def fini = true
-    currentSession = PlanningPokerSession.findByProduct(Product.get(params.product))
-    currentSession.votes.each{
-      if(fini && it.voteValue == -10 && it.user != currentUser){
-        fini = false
-      }
-    }
-    if(fini){
+    if(!planningPokerService.hasVoted(params.product, springSecurityService.principal.id))
+        planningPokerService.setUnvoted(params.product, springSecurityService.principal.id)
+    if(planningPokerService.isVoteTerminated(params.product))
         push  "${params.product}-planningPoker-endOfCountDown"
-    }
   }
 
   def getResult = {
@@ -166,7 +145,7 @@ class PlanningPokerController {
   }
 
   def submitVote = {
-    planningPokerService.setVote(params.product, springSecurityService.principal.id, Integer.parseInt(params.valueCard) )
+    planningPokerService.setVote(params.product, springSecurityService.principal.id, Integer.parseInt(params.valueCard))
     pushOthers "${params.product}-planningPoker-displayStatusOthers"
     render(status:200)
   }

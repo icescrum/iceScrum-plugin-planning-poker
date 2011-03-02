@@ -8,6 +8,9 @@ class PlanningPokerService {
 
     //static transactional = true
 
+    def VALUE_BEFORE_VOTE = -10;
+    def VALUE_UNVOTED = -1;
+
     def springSecurityService
 
     def createSession(productid) {
@@ -15,40 +18,44 @@ class PlanningPokerService {
         return session.save(flush:true)
     }
 
-    def getCurrentSession(productid) {
+    def getSession(productid) {
         return PlanningPokerSession.findByProduct(Product.get(productid))
     }
 
     def deleteSession(productid) {
-        getCurrentSession(productid).delete()
+        getSession(productid).delete()
     }
 
     def setStory(productid, storyid) {
-        PlanningPokerSession currentSession = getCurrentSession(productid)
+        PlanningPokerSession currentSession = getSession(productid)
         currentSession.story = Story.get(storyid)
         return currentSession.save(flush:true)
     }
 
     def getStory(productid) {
-        return getCurrentSession(productid).story
+        return getSession(productid).story
     }
 
     def createVote(productid, userid) {
         User currentUser = User.get(userid)
-        PlanningPokerSession currentSession = getCurrentSession(productid)
+        PlanningPokerSession currentSession = getSession(productid)
         PlanningPokerVote vote = new PlanningPokerVote(user:currentUser, session:currentSession)
         return vote.save(flush:true)
     }
 
     def initVotes(productid){
         getVotes(productid).each{
-            it.voteValue = -10
+            it.voteValue = VALUE_BEFORE_VOTE
             it.save(flush:true)
         }
     }
 
     def getVotes(productid) {
-        return getCurrentSession(productid)?.votes
+        return getSession(productid)?.votes
+    }
+
+    def setUnvoted(productid, userid) {
+        setVote(productid, userid, VALUE_UNVOTED);
     }
 
     def setVote(productid, userid, value) {
@@ -62,5 +69,31 @@ class PlanningPokerService {
             return false
         vote.voteValue = value
         return vote.save(flush:true)
+    }
+
+    boolean hasVoted(productid, userid) {
+        def currentUser = User.get(userid)
+        def hasVoted = false;
+        getVotes(productid).each{
+            if(it.user == currentUser)
+                if (it.voteValue != VALUE_BEFORE_VOTE)
+                    hasVoted = true;
+        }
+        return hasVoted
+    }
+
+    def isVoteTerminated (productid) {
+        getVotes(productid).each{
+            if(it.voteValue == VALUE_BEFORE_VOTE)
+                return false
+        }
+        return true
+    }
+
+    def printVotes (commentaire) {
+        println "Votes - " + commentaire
+        PlanningPokerVote.list().each{
+            println it.user.username + ": " + it.voteValue
+        }
     }
 }
