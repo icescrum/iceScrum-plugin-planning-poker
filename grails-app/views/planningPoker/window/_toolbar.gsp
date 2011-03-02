@@ -2,7 +2,7 @@
 
 <div class="planning-poker-right">
 <is:iconButton
-          action="close"
+          action="closeSession"
           rendered="${scrumMaster}"
           controller="${id}"
           history="false"

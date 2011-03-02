@@ -12,7 +12,7 @@
             history="false"
             remote="true"
             controller="planningPoker"
-            action="start"
+            action="startSession"
             button="button-s button-s-light"
             title="${message(code:'is.ui.planningPoker.start')}"
             alt="${message(code:'is.ui.planningPoker.start')}"

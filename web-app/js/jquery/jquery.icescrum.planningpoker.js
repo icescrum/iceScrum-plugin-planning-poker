@@ -48,7 +48,7 @@
             $('#redirection').click(function() {
                 $.ajax({type:'POST',
                     global:false,
-                    url: $.icescrum.o.grailsServer + '/planningPoker/join/',
+                    url: $.icescrum.o.grailsServer + '/planningPoker/joinSession/',
                     data: {
                         product: product
                     },
@@ -111,7 +111,7 @@
                 success:function(data) {
                     $('#planning-poker-table').html('');
                     $.icescrum.planningpoker.displayResultOthers(product, iduser);
-                    $("#planning-poker-final-estimate").html("<div class=\"planning-poker-carte-result  ui-corner-all\"><div class=\"estimation\">" + data.pourcentage + "</div></div>");
+                    $("#planning-poker-final-estimate").html("<div class=\"planning-poker-carte-result  ui-corner-all\"><div class=\"estimation\">" + data.result + "</div></div>");
 
                 }
             });
@@ -189,7 +189,7 @@
         },
 
         closePlanningPoker:function() {
-            jQuery.icescrum.openWindow('project');
+            jQuery.icescrum.openWindow('productBacklog');
         } ,
 
         selectStory:function(ui, idSelect) {

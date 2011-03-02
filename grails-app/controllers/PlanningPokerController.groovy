@@ -39,13 +39,13 @@ class PlanningPokerController {
       render(template:'window/blank',plugin:pluginName ,model:[id:id])
   }
 
-  def join = {
+  def joinSession = {
     planningPokerService.createVote(params.product, springSecurityService.principal.id)
     redirect(action:'display', params:[product:params.product])
   }
 
   @Secured('scrumMaster()')
-  def start = {
+  def startSession = {
     planningPokerService.createSession(params.product)
     planningPokerService.createVote(params.product, springSecurityService.principal.id)
     pushOthers  "${params.product}-plugin-planning-poker"
@@ -66,7 +66,7 @@ class PlanningPokerController {
   }
 
   def getResult = {
-    render(status:200, contentType: 'application/json', text:[pourcentage:planningPokerService.getResult(params.product)] as JSON)
+    render(status:200, contentType: 'application/json', text:[result:planningPokerService.getResult(params.product)] as JSON)
   }
 
   def display = {
@@ -100,7 +100,7 @@ class PlanningPokerController {
   }
 
   @Secured('scrumMaster()')
-  def close = {
+  def closeSession = {
     pushOthers "${params.product}-planningPoker-close"
     planningPokerService.deleteSession(params.product)
     render(status:200)
