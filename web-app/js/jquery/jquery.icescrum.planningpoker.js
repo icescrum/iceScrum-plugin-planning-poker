@@ -37,6 +37,17 @@
 
             }
             $("#voteButton").hide();
+            $('#planning-poker-card-list').hide();
+
+            $('#estimated-title').toggle(function(){
+                $('#estimated-list').show();
+                self._resize();
+                $(this).find('span').html('<strong>-</strong>');
+            }, function(){
+                $('#estimated-list').hide();
+                self._resize();
+                $(this).find('span').html('<strong>+</strong>');
+            })
         },
 
         notifyPlanningPoker:function(product) {
@@ -80,6 +91,7 @@
            $('#accepted-list .accepted-list').selectable("disable");
             //Affichage du compte � rebours
             $('#planning-poker-table').html('<div id="planning-poker-countdown"></div>');
+            $('#planning-poker-card-list').show("normal");
             $('#planning-poker-countdown').countDown({
                 startNumber: 10,
                 callBack: function() {
@@ -113,6 +125,7 @@
                     $.icescrum.planningpoker.displayResultOthers(product, iduser);
                     $("#planning-poker-final-estimate").html("<div class=\"planning-poker-carte-result  ui-corner-all\"><div class=\"estimation\">" + data.result + "</div></div>");
 
+            $('#planning-poker-card-list').hide("normal");
                 }
             });
         },

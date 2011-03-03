@@ -14,7 +14,7 @@
     width:50%;
     margin:auto;
     border:1px silver solid;
-    height:50px;
+    height:25px;
     background-color: #ffffff;
     text-align:center;
     font-size: 20px;
@@ -37,11 +37,15 @@
 }
 
 #planning-poker-table{
-    background-color:#2e8b57;
+    background-color:#0D7846;
+   /* background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0, rgb(29,138,7)), color-stop(1, rgb(10,87,28)));
+    background-image: -moz-linear-gradient(center bottom,rgb(29,138,7) 0%, rgb(10,87,28) 100%); */
     width:90%;
-    height:50px;
+    height:35px;
     margin:auto;
-    border:3px #daa520 solid
+    margin-top: 5px;
+    margin-bottom: 5px;
+    border:3px #854711 solid
 }
 #classtable{
     height: 100%;
@@ -133,4 +137,8 @@
     border:1px silver solid;
     height:50px;
     font-family: "Comic Sans MS", serif
+}
+
+#estimated-title{
+    cursor:pointer;
 }

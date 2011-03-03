@@ -109,7 +109,7 @@
     </g:each>
   </is:planningPokerStoryList>
 
-  <p><g:message code="is.ui.planningPoker.estimated"/> :</p>
+  <p id="estimated-title"><span>-</span> <g:message code="is.ui.planningPoker.estimated"/> :</p>
 <is:planningPokerStoryList
          id='estimated-list'
          dblclickable='[selector:".postit", callback:is.quickLook(params:"\"story.id=\"+obj.attr(\"elemId\")")]'>
