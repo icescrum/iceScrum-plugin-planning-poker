@@ -1,28 +1,24 @@
 #planning-poker-members-list{
-    display:inline;
-
-}
-#planning-poker-members-list li{
-    display:inline-block;
-    list-style:none;
-    padding:0 5px 0 5px;
-    text-align:center
+    text-align:center;
+    height:40%;
+    vertical-align:middle;
 
 }
 
 .planning-poker-carte-others{
-    width:50%;
+    width:30px;
     margin:auto;
     border:1px silver solid;
     height:25px;
     background-color: #ffffff;
     text-align:center;
     font-size: 20px;
-    font-family: "Comic Sans MS", serif;
     position:relative;
     padding-top:20px
 }
-
+.username{
+    font-size:10px;
+}
 .planning-poker-carte.me{
     width:30px;
     font-size:1.4em;
@@ -38,10 +34,8 @@
 
 #planning-poker-table{
     background-color:#0D7846;
-   /* background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0, rgb(29,138,7)), color-stop(1, rgb(10,87,28)));
-    background-image: -moz-linear-gradient(center bottom,rgb(29,138,7) 0%, rgb(10,87,28) 100%); */
     width:90%;
-    height:35px;
+    height:20%;
     margin:auto;
     margin-top: 5px;
     margin-bottom: 5px;
@@ -115,8 +109,7 @@
 }
 
 .estimation{
-    font-size: 50px;
-    font-family: "Comic Sans MS", serif;
+    font-size: 3em;
     position:relative;
     top:40%
 }
@@ -136,7 +129,6 @@
     margin:auto;
     border:1px silver solid;
     height:50px;
-    font-family: "Comic Sans MS", serif
 }
 
 #estimated-title{

@@ -2,37 +2,39 @@
 <g:set var="scrumMaster" value="${sec.access([expression:'scrumMaster()'], {true})}"/>
 
 <div id="jeu">
-
-  <ul id="planning-poker-members-list">
-    <g:each in="${projectMembers}" var="projectMember">
-      <li>
+  <table cellpadding="0" width="100%" cellspacing="0" border="0" id="planning-poker-members-list">
+      <tr>
+          <g:each in="${projectMembers}" var="projectMember">
+              <td align="center">
+                  <div align="center">
         <is:avatar userid="${projectMember.id}" class="ico"/><br/>
-        ${projectMember.firstName} ${projectMember.lastName}
+        <span class="username">${projectMember.firstName} ${projectMember.lastName}</span></div>
         <div id="planning-poker-members-list-card-${projectMember.id}" class="planning-poker-carte-others ui-corner-all">&nbsp;</div>
-      </li>
-    </g:each>
-  </ul>
+   </td> </g:each>
+      </tr>
+  </table>
 
-  <div id="planning-poker-table" class="ui-corner-all">
+  <div id="planning-poker-table" class="ui-corner-all" style="height:20%">
        <div id="voteButton">
         <is:button
              type="link"
-               history="false"
-               remote="true"
-               rendered="${scrumMaster}"
-               controller="planningPoker"
-               button="button-s button-s-light"
-               action="startVote"
-               title="${message(code:'is.ui.planningPoker.vote.start')}"
-               alt="${message(code:'is.ui.planningPoker.vote.start')}"
-               icon="create"
-               >
+             history="false"
+             remote="true"
+             rendered="${scrumMaster}"
+             controller="planningPoker"
+             button="button-s button-s-light"
+             action="startVote"
+             title="${message(code:'is.ui.planningPoker.vote.start')}"
+             alt="${message(code:'is.ui.planningPoker.vote.start')}"
+             icon="create"
+             >
              <strong>${message(code:'is.ui.planningPoker.vote.start')}</strong>
-         </is:button>
+        </is:button>
        </div>
   </div>
+
   <div align="center"><is:avatar userid="${me.id}" class="ico"/><br/>
-    ${me.firstName} ${me.lastName}</div>
+    <span class="username"><g:message code="is.ui.planningPoker.me"/></span></div>
 
   <table id="planning-poker-card-list">
     <tr>
@@ -64,6 +66,11 @@
   </div>
 
 </div>
+
+
+
+
+
 
 <div id="stories">
 

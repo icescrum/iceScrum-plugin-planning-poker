@@ -40,13 +40,13 @@
             $('#planning-poker-card-list').hide();
 
             $('#estimated-title').toggle(function(){
+                $('#estimated-list').hide();
+                self._resize();
+                $(this).find('span').html('<strong>+</strong>');}, function(){
                 $('#estimated-list').show();
                 self._resize();
                 $(this).find('span').html('<strong>-</strong>');
-            }, function(){
-                $('#estimated-list').hide();
-                self._resize();
-                $(this).find('span').html('<strong>+</strong>');
+
             })
         },
 
@@ -180,13 +180,12 @@
         _resize:function() {
             var self = this;
             var o = self.o;
-
             o.storyWidth = $(".postit.story").width();
             o.windowWidth = $('.window-content').width();
+
             o.windowHeight = $('.window-content').height();
 
-            $('.window-content #jeu').css({height: o.windowHeight - $('.window-content #stories').height()-1 + 'px'})
-            o.estimatedStoriesListWidth = o.storyWidth * $("#estimated-list .postit-story").size();
+             o.estimatedStoriesListWidth = o.storyWidth * $("#estimated-list .postit-story").size();
 
             o.acceptedStoriesListWidth = o.storyWidth * $("#accepted-list .postit-story").size();
 
@@ -194,9 +193,9 @@
             //$("#accepted-list .postit-story").
             $('#accepted-list').css({width: o.acceptedStoriesListWidth });
             $('#estimated-list').css({width: o.estimatedStoriesListWidth });
-
-            $('#accepted-list').scrollbar({contentWidth:o.windowWidth, position:'bottom'});
+$('#accepted-list').scrollbar({contentWidth:o.windowWidth, position:'bottom'});
             $('#estimated-list').scrollbar({contentWidth:o.windowWidth, position:'bottom'});
+            $('.window-content #jeu').css({height: o.windowHeight - $('.window-content #stories').height()-1 + 'px'})
 
 
         },
