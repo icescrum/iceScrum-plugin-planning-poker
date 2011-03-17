@@ -3,7 +3,6 @@
     $.icescrum.planningpoker = ({
 
         defaults:{
-
             i18n:{
                 newPlanningSession:'New planning poker session',
                 join:'Join'
