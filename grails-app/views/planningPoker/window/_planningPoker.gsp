@@ -155,7 +155,7 @@
 
 
 <jq:jquery>
-  jQuery.icescrum.planningpoker.init(${params.product});
+  jQuery.icescrum.planningpoker.init(${params.product}, ${valueBeforeVote}, ${valueUnvoted});
 
   <is:renderNotice />
   <icep:notifications

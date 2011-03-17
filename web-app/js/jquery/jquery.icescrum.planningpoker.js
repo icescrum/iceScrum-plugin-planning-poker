@@ -15,14 +15,17 @@
             storyWidth:null,
             estimatedStoriesListWidth:null,
             acceptedStoriesListWidth:null,
-            product:null
-
+            product:null,
+            valueBeforeVote:null,
+            valueUnvoted:null
         },
 
-        init:function(product) {
+        init:function(product, valueBeforeVote, valueUnvoted) {
             var self = this;
             var o = self.o;
             o.product = product;
+            o.valueBeforeVote = valueBeforeVote;
+            o.valueUnvoted = valueUnvoted;
             this._resize();
             //----------- Vote------------
             $(".planning-poker-carte.me").click(function() {
@@ -131,6 +134,7 @@
 
         displayResultOthers:function(iduser) {
             var product = this.o.product;
+            var valueUnvoted = this.o.valueUnvoted;
             $.ajax({type:'POST',
                 global:false,
                 url: $.icescrum.o.grailsServer + '/planningPoker/getVotes/',
@@ -141,7 +145,7 @@
                     data = $.parseJSON(data);
                     $('#planning-poker-members-list-card-me').html("<div id=\"planning-poker-members-list-card-" + iduser + "\" class=\"planning-poker-carte-others ui-corner-all\">&nbsp;</div>");
                     for (var i = 0; i < data.votes.length; i++) {
-                        if (data.votes[i].voteValue == -1) {
+                        if (data.votes[i].voteValue == valueUnvoted) {
                             $('#planning-poker-members-list-card-' + data.votes[i].user.id).html('?');
                         } else {
                             $('#planning-poker-members-list-card-' + data.votes[i].user.id).html(data.votes[i].voteValue);
@@ -153,6 +157,7 @@
 
         displayStatusOthers:function(iduser) {
             var product = this.o.product;
+            var valueBeforeVote = this.o.valueBeforeVote;
             $.ajax({type:'POST',
                 global:false,
                 url: $.icescrum.o.grailsServer + '/planningPoker/getVotes/',
@@ -163,7 +168,7 @@
                     data = $.parseJSON(data);
                     for (var i = 0; i < data.votes.length; i++) {
                         if (data.votes[i].user.id != iduser) {
-                            if (data.votes[i].voteValue == -10) {
+                            if (data.votes[i].voteValue == valueBeforeVote) {
                                 $('#planning-poker-members-list-card-' + data.votes[i].user.id).html('...');
                             } else {
                                 if (data.votes[i].voteValue >= 0)

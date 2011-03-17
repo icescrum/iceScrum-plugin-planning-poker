@@ -96,7 +96,9 @@ class PlanningPokerController {
             suite_fibo:suite,
             stories_e:storiesEstimees,
             stories_ne:storiesNonEstimees,
-            id:id,])
+            id:id,
+            valueBeforeVote:planningPokerService.VALUE_BEFORE_VOTE,
+            valueUnvoted:planningPokerService.VALUE_UNVOTED])
   }
 
   @Secured('scrumMaster()')
