@@ -122,10 +122,9 @@
                 },
                 success:function(data) {
                     $('#planning-poker-table').html('');
-                    $.icescrum.planningpoker.displayResultOthers(product, iduser);
+                    $.icescrum.planningpoker.displayResultOthers(iduser);
                     $("#planning-poker-final-estimate").html("<div class=\"planning-poker-carte-result  ui-corner-all\"><div class=\"estimation\">" + data.result + "</div></div>");
-
-            $('#planning-poker-card-list').hide("normal");
+                    $('#planning-poker-card-list').hide("normal");
                 }
             });
         },
@@ -140,13 +139,12 @@
                 },
                 success:function(data) {
                     data = $.parseJSON(data);
+                    $('#planning-poker-members-list-card-me').html("<div id=\"planning-poker-members-list-card-" + iduser + "\" class=\"planning-poker-carte-others ui-corner-all\">&nbsp;</div>");
                     for (var i = 0; i < data.votes.length; i++) {
-                        if (data.votes[i].user.id != iduser) {
-                            if (data.votes[i].voteValue == -1) {
-                                $('#planning-poker-members-list-card-' + data.votes[i].user.id).html('?');
-                            } else {
-                                $('#planning-poker-members-list-card-' + data.votes[i].user.id).html(data.votes[i].voteValue);
-                            }
+                        if (data.votes[i].voteValue == -1) {
+                            $('#planning-poker-members-list-card-' + data.votes[i].user.id).html('?');
+                        } else {
+                            $('#planning-poker-members-list-card-' + data.votes[i].user.id).html(data.votes[i].voteValue);
                         }
                     }
                 }

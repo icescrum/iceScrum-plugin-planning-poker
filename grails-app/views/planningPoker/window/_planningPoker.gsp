@@ -34,7 +34,9 @@
   </div>
 
   <div align="center"><is:avatar userid="${me.id}" class="ico"/><br/>
-    <span class="username"><g:message code="is.ui.planningPoker.me"/></span></div>
+    ${me.firstName} ${me.lastName}
+    <div id="planning-poker-members-list-card-me"></div>
+  </div>
 
   <table id="planning-poker-card-list">
     <tr>
