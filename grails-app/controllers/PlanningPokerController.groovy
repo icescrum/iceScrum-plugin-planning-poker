@@ -66,7 +66,7 @@ class PlanningPokerController {
   }
 
   def getResult = {
-    render(status:200, contentType: 'application/json', text:[result:planningPokerService.getResult(params.product)] as JSON)
+    render(template:'window/result',plugin:pluginName ,model:[result:planningPokerService.getResult(params.product)])
   }
 
   def display = {
@@ -131,5 +131,10 @@ class PlanningPokerController {
 
   def button = {
     render(is.separator() + is.iconButton([action:"index",controller:id, onSuccess:"jQuery.icescrum.openWindow('planningPoker');"],message(code:'is.ui.planningPoker')))
+  }
+
+  def acceptResult = {
+    planningPokerService.acceptResult(params.product);
+    render(status:200)
   }
 }

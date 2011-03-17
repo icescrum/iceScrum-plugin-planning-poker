@@ -124,8 +124,8 @@
                 },
                 success:function(data) {
                     $('#planning-poker-table').html('');
-                    $.icescrum.planningpoker.displayResultOthers(iduser);
-                    $("#planning-poker-final-estimate").html("<div class=\"planning-poker-carte-result  ui-corner-all\"><div class=\"estimation\">" + data.result + "</div></div>");
+                    $.icescrum.planningpoker.displayResultOthers(product, iduser);
+                    $('#planning-poker-final-estimate').html(data);
                     $('#planning-poker-card-list').hide("normal");
                 }
             });

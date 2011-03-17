@@ -10,6 +10,7 @@ class PlanningPokerService {
     def VALUE_UNVOTED = -1;
 
     def springSecurityService
+    def productBacklogService
 
     def createSession(productid) {
         PlanningPokerSession session = new PlanningPokerSession(product:Product.get(productid))
@@ -110,5 +111,11 @@ class PlanningPokerService {
         if(nbVotes > 0)
             result = String.valueOf((totalVotes/nbVotes).round(1))
         return result
+    }
+
+    def acceptResult (productid) {
+      def story = getStory(productid)
+      def result = getResult(productid)
+      productBacklogService.estimateStory(story,result.substring(0,result.indexOf(".")));
     }
 }

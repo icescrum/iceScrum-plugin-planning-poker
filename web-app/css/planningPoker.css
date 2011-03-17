@@ -114,6 +114,10 @@
     top:40%
 }
 
+.acceptButton{
+    margin-bottom:1%;
+}
+
 .planning-poker-carte.me.activatedCard {
     height:35px;
     background: #3399ff;
