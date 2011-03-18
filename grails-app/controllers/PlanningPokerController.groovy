@@ -166,4 +166,10 @@ class PlanningPokerController {
     push "${params.product}-planningPoker-voteAccepted"
     render(status:200)
   }
+
+  def revote = {
+
+    push "${params.product}-planningPoker-revote"
+    render(status:200)
+  }
 }

@@ -227,4 +227,9 @@
         callback="jQuery.icescrum.planningpoker.displayStatusOthers(${me.id});"
         group="${params.product}-planningPoker-displayStatusOthers"
         listenOn="#window-content-planningPoker"/>
+   <icep:notifications
+        name="planningPokerWindow"
+        callback="jQuery.icescrum.planningpoker.revote();"
+        group="${params.product}-planningPoker-revote"
+        listenOn="#window-content-planningPoker"/>
 </jq:jquery>

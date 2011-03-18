@@ -36,7 +36,7 @@
 
 <div class="planning-poker-carte-result  ui-corner-all">
   <div class="estimation">
-    ${result}
+    <span class="editable">${result}</span>
   </div>
   <div class="acceptButton">
    <is:button
@@ -44,9 +44,9 @@
           history="false"
           remote="true"
           rendered="${scrumMaster}"
-          controller="planningPoker"
           button="button-s button-s-light"
-          action="acceptResult"
+          controller="planningPoker"
+          action="acceptVote"
           title="${message(code:'is.ui.planningPoker.accept.result')}"
           alt="${message(code:'is.ui.planningPoker.accept.result')}"
           icon="create" ><strong>${message(code:'is.ui.planningPoker.accept.result')}</strong>
@@ -58,12 +58,13 @@
           history="false"
           remote="true"
           rendered="${scrumMaster}"
-          controller="planningPoker"
           button="button-s button-s-light"
-          action="startVote"
+          controller="planningPoker"
+          action="revote"
           title="${message(code:'is.ui.planningPoker.accept.result')}"
           alt="${message(code:'is.ui.planningPoker.accept.result')}"
-          icon="create" ><strong>${message(code:'is.ui.planningPoker.revote')}</strong>
+          icon="create" >
+     <strong>${message(code:'is.ui.planningPoker.revote')}</strong>
     </is:button>
   </div>
 </div>

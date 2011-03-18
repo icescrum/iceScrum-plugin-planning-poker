@@ -159,10 +159,26 @@
                 success:function(data) {
                     $('#planning-poker-table').html('');
                     $.icescrum.planningpoker.displayResultOthers(product, iduser);
+                    $('#planning-poker-final-estimate').show("normal");
                     $('#planning-poker-final-estimate').html(data);
                     $('#planning-poker-card-list').hide("normal");
                 }
             });
+        },
+
+        revote:function() {
+            $('#planning-poker-final-estimate').hide("normal");
+            var product = this.o.product;
+            $.ajax({type:'POST',
+                global:false,
+                url: $.icescrum.o.grailsServer + '/planningPoker/startVote/',
+                data: {
+                    product: product
+                },
+                success:function() {
+                }
+            });
+            return false;
         },
 
         displayResultOthers:function(iduser) {
