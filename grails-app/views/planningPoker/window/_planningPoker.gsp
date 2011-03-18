@@ -180,8 +180,8 @@
         listenOn="#window-content-planningPoker"/>
   <icep:notifications
         name="planningPokerWindow"
-        reload="[update:'#jeu',controller:'planningPoker',action:'display',params:[product:params.product]]"
-        group="${params.product}-planningPoker-startVote"
+        reload="[update:'#window-content-planningPoker',controller:'planningPoker',action:'display',params:[product:params.product]]"
+        group="${params.product}-planningPoker-voteAccepted"
         listenOn="#window-content-planningPoker"/>
   <icep:notifications
         name="planningPokerWindow"

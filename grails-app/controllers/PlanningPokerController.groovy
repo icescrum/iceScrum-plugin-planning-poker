@@ -135,6 +135,7 @@ class PlanningPokerController {
 
   def acceptResult = {
     planningPokerService.acceptResult(params.product);
+    push "${params.product}-planningPoker-voteAccepted"
     render(status:200)
   }
 }
