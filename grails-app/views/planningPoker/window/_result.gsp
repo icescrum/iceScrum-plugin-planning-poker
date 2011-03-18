@@ -18,5 +18,18 @@
           icon="create" ><strong>${message(code:'is.ui.planningPoker.accept.result')}</strong>
     </is:button>
   </div>
-
+  <div class="revotetButton">
+   <is:button
+          type="link"
+          history="false"
+          remote="true"
+          rendered="${scrumMaster}"
+          controller="planningPoker"
+          button="button-s button-s-light"
+          action="startVote"
+          title="${message(code:'is.ui.planningPoker.accept.result')}"
+          alt="${message(code:'is.ui.planningPoker.accept.result')}"
+          icon="create" ><strong>${message(code:'is.ui.planningPoker.revote')}</strong>
+    </is:button>
+  </div>
 </div>
