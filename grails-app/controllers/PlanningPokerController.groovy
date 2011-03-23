@@ -161,7 +161,7 @@ class PlanningPokerController {
     render(is.separator() + is.iconButton([action:"index",controller:id, onSuccess:"jQuery.icescrum.openWindow('planningPoker');"],message(code:'is.ui.planningPoker')))
   }
 
-  def acceptResult = {
+  def acceptVote = {
     planningPokerService.acceptResult(params.product);
     push "${params.product}-planningPoker-voteAccepted"
     render(status:200)

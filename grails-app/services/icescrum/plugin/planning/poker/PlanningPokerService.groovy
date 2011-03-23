@@ -143,6 +143,10 @@ class PlanningPokerService {
     def acceptResult (productid) {
       def story = getStory(productid)
       def result = getResult(productid)
-      productBacklogService.estimateStory(story,result.substring(0,result.indexOf(".")));
+      if(result != "?")
+      {
+           result = result.substring(0,result.indexOf("."))
+      }
+      productBacklogService.estimateStory(story,result);
     }
 }
