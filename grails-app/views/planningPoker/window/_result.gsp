@@ -35,8 +35,19 @@
 <g:set var="scrumMaster" value="${sec.access([expression:'scrumMaster()'], {true})}"/>
 
 <div class="planning-poker-carte-result  ui-corner-all">
+
+    <is:editable
+        on="#editableNote"
+        typed="[type:'numeric']"
+        wrap="true"
+        action="estimateStory"
+        onExit="submit"
+        controller="planningPoker"
+        highlight="true"
+        params="[product:params.product]"/>
+
   <div class="estimation">
-    <span class="editable">${result}</span>
+    <span id="editableNote">${result}</span>
   </div>
   <div class="acceptButton">
    <is:button

@@ -129,6 +129,12 @@ class PlanningPokerController {
             valueUnvoted:planningPokerService.VALUE_UNVOTED])
   }
 
+  def estimateStory = {
+    planningPokerService.acceptEstimate(params.product, params.int('value'))
+    push "${params.product}-planningPoker-voteAccepted"
+    render(status:200)
+  }
+
   @Secured('scrumMaster()')
   def closeSession = {
     pushOthers "${params.product}-planningPoker-close"

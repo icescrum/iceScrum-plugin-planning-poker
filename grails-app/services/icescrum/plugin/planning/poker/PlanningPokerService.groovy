@@ -126,8 +126,8 @@ class PlanningPokerService {
 
     def getResult (productid) {
         def votes = getVotes(productid)
-        float totalVotes = 0
-        float nbVotes = 0
+        int totalVotes = 0
+        int nbVotes = 0
         votes.each{
             if(it.voteValue >= 0) {
                 totalVotes += it.voteValue
@@ -136,17 +136,20 @@ class PlanningPokerService {
         }
         String result = "?"
         if(nbVotes > 0)
-            result = String.valueOf((totalVotes/nbVotes).round(1))
+            result = String.valueOf(totalVotes/nbVotes)
+
         return result
     }
 
     def acceptResult (productid) {
       def story = getStory(productid)
       def result = getResult(productid)
-      if(result != "?")
-      {
-           result = result.substring(0,result.indexOf("."))
-      }
       productBacklogService.estimateStory(story,result);
+    }
+
+    def acceptEstimate (productid, presult) {
+      def story = getStory(productid)
+      def result = presult
+      productBacklogService.estimateStory(story,result)
     }
 }
