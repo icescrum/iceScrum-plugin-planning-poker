@@ -135,9 +135,10 @@ class PlanningPokerService {
             }
         }
         String result = "?"
-        if(nbVotes > 0)
-            result = String.valueOf(totalVotes/nbVotes)
-
+        if(nbVotes > 0){
+            int resulttmp = totalVotes/nbVotes
+            result = String.valueOf(resulttmp)
+        }
         return result
     }
 

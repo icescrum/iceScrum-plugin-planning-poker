@@ -91,6 +91,7 @@ class PlanningPokerController {
       planningPokerService.setUnvoted(params.product, springSecurityService.principal.id)
     if(planningPokerService.isVoteTerminated(params.product))
       push  "${params.product}-planningPoker-endOfCountDown"
+    render(status:200)
   }
 
   def getResult = {
@@ -154,7 +155,7 @@ class PlanningPokerController {
   }
 
   def submitVote = {
-    planningPokerService.setVote(params.product, springSecurityService.principal.id, Integer.parseInt(params.valueCard))
+    planningPokerService.setVote(params.product, params.iduser, Integer.parseInt(params.valueCard))
     pushOthers "${params.product}-planningPoker-displayStatusOthers"
     render(status:200)
   }

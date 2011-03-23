@@ -90,7 +90,8 @@
                 history="false"
                 remote="true"
                 params="[valueCard:n,
-                    product:params.product]">
+                    product:params.product,
+                    iduser:me.id]">
                 <div class='planning-poker-carte ui-corner-top me'>${n}</div>
             </is:link>
         </td>
