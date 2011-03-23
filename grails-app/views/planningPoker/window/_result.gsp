@@ -34,11 +34,16 @@
 
 <g:set var="scrumMaster" value="${sec.access([expression:'scrumMaster()'], {true})}"/>
 
-<div class="planning-poker-carte-result  ui-corner-all">
-  <div class="estimation">
-    <span class="editable">${result}</span>
-  </div>
-  <div class="acceptButton">
+<div class="planning-poker-carte-result  ui-corner-all" style="padding-top:10px">
+    <table width="100%">
+        <tr>
+            <td align="center" height="70"><div class="estimation" align="center">
+    <span class="editable"align="center">${result}</span>
+  </div></td>
+        </tr>
+        <tr>
+            <td align="center">
+  <div class="acceptButton" align="center" style="width:100%">
    <is:button
           type="link"
           history="false"
@@ -46,13 +51,14 @@
           rendered="${scrumMaster}"
           button="button-s button-s-light"
           controller="planningPoker"
+        align="center"
           action="acceptVote"
           title="${message(code:'is.ui.planningPoker.accept.result')}"
           alt="${message(code:'is.ui.planningPoker.accept.result')}"
           icon="create" ><strong>${message(code:'is.ui.planningPoker.accept.result')}</strong>
     </is:button>
   </div>
-  <div class="revotetButton">
+  <div class="revotetButton" align="center" style="width:100%">
    <is:button
           type="link"
           history="false"
@@ -63,11 +69,12 @@
           action="revote"
           title="${message(code:'is.ui.planningPoker.revote')}"
           alt="${message(code:'is.ui.planningPoker.revote')}"
+        align="center"
           icon="create" >
      <strong>${message(code:'is.ui.planningPoker.revote')}</strong>
     </is:button>
   </div>
-  <div class="cancelButton">
+  <div class="cancelButton" align="center" style="width:100%">
    <is:button
           type="link"
           history="false"
@@ -78,8 +85,13 @@
           action="cancel"
           title="${message(code:'is.ui.planningPoker.cancel')}"
           alt="${message(code:'is.ui.planningPoker.cancel')}"
+        align="center"
           icon="create" >
      <strong>${message(code:'is.ui.planningPoker.cancel')}</strong>
     </is:button>
-  </div>
+  </div></td>
+        </tr>
+    </table>
+
+
 </div>

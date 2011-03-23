@@ -114,11 +114,11 @@
 
   <is:planningPokerStoryList
           id='accepted-list'
-         dblclickable='[selector:".postit", callback:is.quickLook(params:"\"story.id=\"+obj.attr(\"elemId\")")]'
+          dblclickable='[selector:".postit", callback:is.quickLook(params:"\"story.id=\"+obj.attr(\"elemId\")")]'
           style="width:100%"
           selectable="[rendered:scrumMaster,
-                 filter:'.postit',
-                 cancel:'.postit-label, .postit-story, a',
+                 filter:'div.postit-story',
+                 cancel:'.postit-label, a, .postit-excerpt',
                  selected:'\$.icescrum.planningpoker.selectStory(this, \$(this).find(\'div\').attr(\'elemid\'));']">
 
     <g:each in="${stories_ne}" var="story">

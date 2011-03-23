@@ -43,11 +43,10 @@ class PlanningPokerTagLib {
       def selectableOptions = [
               filter: UtilsWebComponents.wrap(attr: (attrs.selectable.filter), doubleQuote: true),
               cancel: UtilsWebComponents.wrap(attrs.selectable.cancel),
-              selected: "function(){ ${attrs.selectable.selected}}",//
-              stop: attrs.selectable.stop,
+              selected: "function(){ ${attrs.selectable.selected}}"
       ]
       def opts = selectableOptions.findAll {k, v -> v}.collect {k, v -> " $k:$v" }.join(',')
-      jqCode = "\$('#${attrs.id } .accepted-list').selectable({selected : ${selectableOptions.selected} });"
+      jqCode = "\$('#${attrs.id } .accepted-list').selectable({${opts}});"
 
     out << jq.jquery(null, jqCode)
     }

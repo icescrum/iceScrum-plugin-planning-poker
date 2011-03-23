@@ -69,9 +69,10 @@
             if (!$("#dropmenu").is(':visible')) {
                 $("#window-id-${id}").focus();
 
-                $(window).resize(this._resize);
+
 
             }
+            $(window).resize(self._resize);
             $("#voteButton").hide();
             $('#planning-poker-card-list').hide();
 
@@ -230,8 +231,10 @@
         },
 
         _resize:function() {
-            var self = this;
-            var o = self.o;
+
+            self = this;
+            o = self.o;
+
             o.storyWidth = $(".postit.story").width();
             o.windowWidth = $('.window-content').width();
 

@@ -103,7 +103,8 @@
     border-top:1px silver solid;
 }
 #jeu{
-    position:relative
+    position:relative  ;
+    min-height:230px;
 }
 
 #stories>p{
