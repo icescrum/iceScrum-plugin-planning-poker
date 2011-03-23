@@ -168,8 +168,12 @@ class PlanningPokerController {
   }
 
   def revote = {
-
     push "${params.product}-planningPoker-revote"
+    render(status:200)
+  }
+
+  def cancel = {
+    push "${params.product}-planningPoker-voteAccepted"
     render(status:200)
   }
 }

@@ -61,10 +61,25 @@
           button="button-s button-s-light"
           controller="planningPoker"
           action="revote"
-          title="${message(code:'is.ui.planningPoker.accept.result')}"
-          alt="${message(code:'is.ui.planningPoker.accept.result')}"
+          title="${message(code:'is.ui.planningPoker.revote')}"
+          alt="${message(code:'is.ui.planningPoker.revote')}"
           icon="create" >
      <strong>${message(code:'is.ui.planningPoker.revote')}</strong>
+    </is:button>
+  </div>
+  <div class="cancelButton">
+   <is:button
+          type="link"
+          history="false"
+          remote="true"
+          rendered="${scrumMaster}"
+          button="button-s button-s-light"
+          controller="planningPoker"
+          action="cancel"
+          title="${message(code:'is.ui.planningPoker.cancel')}"
+          alt="${message(code:'is.ui.planningPoker.cancel')}"
+          icon="create" >
+     <strong>${message(code:'is.ui.planningPoker.cancel')}</strong>
     </is:button>
   </div>
 </div>
