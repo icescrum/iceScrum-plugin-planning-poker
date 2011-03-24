@@ -159,7 +159,7 @@
                 },
                 success:function(data) {
                     $('#planning-poker-table').html('');
-                    $.icescrum.planningpoker.displayResultOthers(product, iduser);
+                    $.icescrum.planningpoker.displayResultOthers(iduser);
                     $('#planning-poker-final-estimate').show("normal");
                     $('#planning-poker-final-estimate').html(data);
                     $('#planning-poker-card-list').hide("normal");

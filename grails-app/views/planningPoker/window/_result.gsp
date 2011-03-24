@@ -35,14 +35,23 @@
 <g:set var="scrumMaster" value="${sec.access([expression:'scrumMaster()'], {true})}"/>
 
 <div class="planning-poker-carte-result  ui-corner-all" style="padding-top:10px">
-    <table width="100%">
-        <tr>
-            <td align="center" height="70"><div class="estimation" align="center">
-    <span class="editable"align="center">${result}</span>
-  </div></td>
-        </tr>
+        <table width="100%">
         <tr>
             <td align="center">
+    <g:if test="${scrumMaster}">
+        <is:editable
+            on="#editableNote"
+            typed="[type:'numeric']"
+            wrap="true"
+            action="estimateStory"
+            onExit="submit"
+            controller="planningPoker"
+            highlight="true"
+            params="[product:params.product]"/>
+    </g:if> <div class="estimation"  align="center" style="padding-top:10px">
+    <span id="editableNote">${result}</span>
+  </div>
+           </td></tr><tr><td align="center"  align="center" style="padding-top:10px">
   <div class="acceptButton" align="center" style="width:100%">
    <is:button
           type="link"
@@ -94,4 +103,4 @@
     </table>
 
 
-</div>
+  </div>
