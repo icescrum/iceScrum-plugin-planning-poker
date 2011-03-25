@@ -36,6 +36,6 @@ entryPoints = {
    entry {
        action "button"
        controller "planningPoker"
-       ref "productBacklog-toolbar"
+       points "productBacklog-toolbar"
    }
 }
