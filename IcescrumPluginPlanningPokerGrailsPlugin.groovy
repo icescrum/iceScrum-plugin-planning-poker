@@ -10,7 +10,7 @@ class IcescrumPluginPlanningPokerGrailsPlugin {
             "grails-app/views/error.gsp"
     ]
 
-    def loadAfter = ['icescrum-core-webcomponents']
+    def loadAfter = ['icescrum-core']
 
     // TODO Fill in these fields
     def author = "Your name"
