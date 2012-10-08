@@ -37,25 +37,7 @@ import grails.converters.JSON
 @Secured('inProduct()')
 class PlanningPokerController {
 
-  static ui = true
   static final pluginName = 'icescrum-plugin-planning-poker'
-  static final id = 'planningPoker'
-  static window = [title:'is.ui.planningPoker',help:'is.ui.planningPoker.help',toolbar:true]
-
-  static stateBundle = [
-          (Story.STATE_SUGGESTED):'is.story.state.suggested',
-          (Story.STATE_ACCEPTED):'is.story.state.accepted',
-          (Story.STATE_ESTIMATED):'is.story.state.estimated',
-          (Story.STATE_PLANNED):'is.story.state.planned',
-          (Story.STATE_INPROGRESS):'is.story.state.inprogress',
-          (Story.STATE_DONE):'is.story.state.done'
-  ]
-
-  static typesBundle = [
-          (Story.TYPE_USER_STORY): 'is.story.type.story',
-          (Story.TYPE_DEFECT): 'is.story.type.defect',
-          (Story.TYPE_TECHNICAL_STORY): 'is.story.type.technical'
-  ]
 
   def springSecurityService
   def planningPokerService
@@ -64,7 +46,7 @@ class PlanningPokerController {
     if(planningPokerService.getSession(params.product))
       forward(action:'display', params:[product:params.product])
     else
-      render(template:'window/blank',plugin:pluginName ,model:[id:id])
+      render(template:'window/blank',plugin:pluginName)
   }
 
   def joinSession = {
@@ -76,21 +58,21 @@ class PlanningPokerController {
   def startSession = {
     planningPokerService.createSession(params.product)
     planningPokerService.createVote(params.product, springSecurityService.principal.id)
-    pushOthers  "${params.product}-plugin-planning-poker"
+    //pushOthers  "${params.product}-plugin-planning-poker"
     redirect(action:'display', params:[product:params.product])
   }
 
   def startVote = {
     planningPokerService.initVotes(params.product)
-    push  "${params.product}-planningPoker-beginningOfCountDown"
+    //push  "${params.product}-planningPoker-beginningOfCountDown"
     render(status:200)
   }
 
   def endOfCountDown = {
     if(!planningPokerService.hasVoted(params.product, springSecurityService.principal.id))
       planningPokerService.setUnvoted(params.product, springSecurityService.principal.id)
-    if(planningPokerService.isVoteTerminated(params.product))
-      push  "${params.product}-planningPoker-endOfCountDown"
+    //if(planningPokerService.isVoteTerminated(params.product))
+      //push  "${params.product}-planningPoker-endOfCountDown"
     render(status:200)
   }
 
@@ -125,20 +107,19 @@ class PlanningPokerController {
             suite_fibo:suite,
             stories_e:storiesEstimees,
             stories_ne:storiesNonEstimees,
-            id:id,
             valueBeforeVote:planningPokerService.VALUE_BEFORE_VOTE,
             valueUnvoted:planningPokerService.VALUE_UNVOTED])
   }
 
   def estimateStory = {
     planningPokerService.acceptEstimate(params.product, params.int('value'))
-    push "${params.product}-planningPoker-voteAccepted"
+    //push "${params.product}-planningPoker-voteAccepted"
     render(status:200)
   }
 
   @Secured('scrumMaster()')
   def closeSession = {
-    pushOthers "${params.product}-planningPoker-close"
+    //pushOthers "${params.product}-planningPoker-close"
     planningPokerService.deleteSession(params.product)
     render(status:200)
   }
@@ -146,7 +127,7 @@ class PlanningPokerController {
   @Secured('scrumMaster()')
   def selectStory = {
     planningPokerService.setStory(params.product, params.story)
-    push "${params.product}-planningPoker-selection-story"
+    //push "${params.product}-planningPoker-selection-story"
     render(status:200)
   }
 
@@ -156,7 +137,7 @@ class PlanningPokerController {
 
   def submitVote = {
     planningPokerService.setVote(params.product, params.iduser, Integer.parseInt(params.valueCard))
-    pushOthers "${params.product}-planningPoker-displayStatusOthers"
+    //pushOthers "${params.product}-planningPoker-displayStatusOthers"
     render(status:200)
   }
 
@@ -164,23 +145,19 @@ class PlanningPokerController {
     render(status:200, text:[votes:planningPokerService.getVotes(params.product)] as JSON)
   }
 
-  def button = {
-    render(is.separator() + is.iconButton([action:"index",controller:id, onSuccess:"jQuery.icescrum.openWindow('planningPoker');"],message(code:'is.ui.planningPoker')))
-  }
-
   def acceptVote = {
     planningPokerService.acceptResult(params.product);
-    push "${params.product}-planningPoker-voteAccepted"
+    //push "${params.product}-planningPoker-voteAccepted"
     render(status:200)
   }
 
   def revote = {
-    push "${params.product}-planningPoker-revote"
+    //push "${params.product}-planningPoker-revote"
     render(status:200)
   }
 
   def cancel = {
-    push "${params.product}-planningPoker-voteAccepted"
+    //push "${params.product}-planningPoker-voteAccepted"
     render(status:200)
   }
 }

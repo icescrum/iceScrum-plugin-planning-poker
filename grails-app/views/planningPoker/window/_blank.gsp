@@ -31,9 +31,6 @@
  *
  *
  *--%>
-
-<g:set var="scrumMaster" value="${sec.access([expression:'scrumMaster()'], {true})}"/>
-
 <div class="box-blank clearfix">
   <p><g:message code="is.ui.planningPoker.help"/> </p>
   <table cellspacing="0" cellpadding="0" border="0" class="box-blank-button">
@@ -42,7 +39,7 @@
       <td>
         <is:button
             type="link"
-            rendered="${scrumMaster}"
+            rendered="${request.scrumMaster}"
             history="false"
             remote="true"
             controller="planningPoker"

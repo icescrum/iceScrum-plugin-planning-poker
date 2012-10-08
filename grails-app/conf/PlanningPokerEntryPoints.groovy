@@ -31,11 +31,11 @@
  *
  *
  */
+//pluginName = ''
 
 entryPoints = {
    entry {
-       action "button"
-       controller "planningPoker"
-       ref "productBacklog-toolbar"
+       //template "/planningPoker/toolbar"
+       //ref "backlog-toolbar"
    }
 }

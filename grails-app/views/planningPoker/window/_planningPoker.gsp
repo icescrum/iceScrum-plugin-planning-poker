@@ -32,19 +32,18 @@
  *
  *--%>
 
-<r:use module="planningPoker"/>
-<g:set var="scrumMaster" value="${sec.access([expression:'scrumMaster()'], {true})}"/>
-
 <div id="jeu">
   <table cellpadding="0" width="100%" cellspacing="0" border="0" id="planning-poker-members-list">
       <tr>
           <g:each in="${projectMembers}" var="projectMember">
               <td align="center">
                   <div align="center">
-        <is:avatar userid="${projectMember.id}" class="ico"/><br/>
-        <span class="username">${projectMember.firstName} ${projectMember.lastName}</span></div>
-        <div id="planning-poker-members-list-card-${projectMember.id}" class="planning-poker-carte-others ui-corner-all">&nbsp;</div>
-   </td> </g:each>
+                    <is:avatar user="${projectMember}" class="ico"/><br/>
+                    <span class="username">${projectMember.firstName} ${projectMember.lastName}</span>
+                  </div>
+                  <div id="planning-poker-members-list-card-${projectMember.id}" class="planning-poker-carte-others ui-corner-all">&nbsp;</div>
+              </td>
+          </g:each>
       </tr>
   </table>
 
@@ -54,7 +53,7 @@
              type="link"
              history="false"
              remote="true"
-             rendered="${scrumMaster}"
+             rendered="${request.scrumMaster}"
              controller="planningPoker"
              button="button-s button-s-light"
              action="startVote"
@@ -67,7 +66,7 @@
        </div>
   </div>
 
-  <div align="center"><is:avatar userid="${me.id}" class="ico"/><br/>
+  <div align="center"><is:avatar user="${me}" class="ico"/><br/>
     ${me.firstName} ${me.lastName}
     <div id="planning-poker-members-list-card-me"></div>
   </div>
@@ -115,40 +114,16 @@
 
   <is:planningPokerStoryList
           id='accepted-list'
-          dblclickable='[selector:".postit", callback:is.quickLook(params:"\"story.id=\"+obj.attr(\"elemId\")")]'
+          dblclickable='[selector:".postit", callback:"\$.icescrum.displayQuicklook"]'
           style="width:100%"
           selectable="[rendered:scrumMaster,
                  filter:'div.postit-story',
                  cancel:'.postit-label, a, .postit-excerpt',
-                 selected:'\$.icescrum.planningpoker.selectStory(this, \$(this).find(\'div\').attr(\'elemid\'));']">
+                 selected:'\$.icescrum.planningpoker.selectStory(this, \$(this).find(\'div\').data(\'elemid\'));']">
 
     <g:each in="${stories_ne}" var="story">
       <div style="float:left" class="accepted-list">
-        <is:postit id="${story.id}"
-                miniId="${story.id}"
-                title="${story.name}"
-                attachment="${story.totalAttachments}"
-                styleClass="story type-story-${story.type}"
-                type="story"
-                typeNumber="${story.type}"
-                typeTitle="${is.bundleFromController(bundle:'typesBundle',value:story.type)}"
-                miniValue="${story.effort >= 0 ? story.effort :'?'}"
-                color="${story.feature?.color}"
-                stateText="${is.bundleFromController(bundle:'stateBundle',value:story.state)}"
-                controller="planningPoker"
-                comment="${story.totalComments >= 0 ? story.totalComments : ''}">
-          <is:truncated size="50" encodedHTML="true"><is:storyTemplate story="${story}"/></is:truncated>
-          <g:if test="${story.name?.length() > 17 || is.storyTemplate(story:story).length() > 50}">
-            <is:tooltipPostit
-                    type="story"
-                    id="${story.id}"
-                    title="${story.name?.encodeAsHTML()}"
-                    text="${is.storyTemplate([story:story])} "
-                    apiBeforeShow="if(\$('#dropmenu').is(':visible') || \$('#postit-select-suite').is(':visible')){return false;}"
-                    container="\$('#window-content-${id}')"
-            />
-          </g:if>
-        </is:postit>
+          <g:include view="/story/_postit.gsp" model="[story:story,user:me]" params="[product:params.product]"/>
       </div>
     </g:each>
   </is:planningPokerStoryList>
@@ -156,33 +131,10 @@
   <p id="estimated-title"><span>-</span> <g:message code="is.ui.planningPoker.estimated"/> :</p>
 <is:planningPokerStoryList
          id='estimated-list'
-         dblclickable='[selector:".postit", callback:is.quickLook(params:"\"story.id=\"+obj.attr(\"elemId\")")]'>
+         dblclickable='[selector:".postit", callback:"\$.icescrum.displayQuicklook"]'>
     <g:each in="${stories_e}" var="story">
       <div style="float:left">
-        <is:postit id="${story.id}"
-                miniId="${story.id}"
-                title="${story.name}"
-                attachment="${story.totalAttachments}"
-                styleClass="story type-story-${story.type}"
-                type="story"
-                typeNumber="${story.type}"
-                typeTitle="${is.bundleFromController(bundle:'typesBundle',value:story.type)}"
-                miniValue="${story.effort >= 0 ? story.effort :'?'}"
-                color="${story.feature?.color}"
-                stateText="${is.bundleFromController(bundle:'stateBundle',value:story.state)}"
-                controller="planningPoker"
-                comment="${story.totalComments >= 0 ? story.totalComments : ''}">
-          <is:truncated size="50" encodedHTML="true"><is:storyTemplate story="${story}"/></is:truncated>
-          <g:if test="${story.name?.length() > 17 || is.storyTemplate(story:story).length() > 50}">
-            <is:tooltipPostit
-                    type="story"
-                    id="${story.id}"
-                    title="${story.name?.encodeAsHTML()}"
-                    text="${is.storyTemplate([story:story])} "
-                    apiBeforeShow="if(\$('#dropmenu').is(':visible') || \$('#postit-select-suite').is(':visible')){return false;}"
-                    container="\$('#window-content-${id}')"/>
-          </g:if>
-        </is:postit>
+          <g:include view="/story/_postit.gsp" model="[story:story,user:me]" params="[product:params.product]"/>
       </div>
     </g:each>
   </is:planningPokerStoryList>
@@ -191,46 +143,4 @@
 
 <jq:jquery>
   jQuery.icescrum.planningpoker.init(${params.product}, ${valueBeforeVote}, ${valueUnvoted});
-
-  <is:renderNotice />
-  <icep:notifications
-        name="planningPokerWindow"
-        callback="jQuery.icescrum.planningpoker.closePlanningPoker();"
-        group="${params.product}-planningPoker-close"
-        listenOn="#window-content-planningPoker"/>
-  <icep:notifications
-        name="planningPokerWindow"
-        callback="jQuery.icescrum.planningpoker.showResult();"
-        group="${params.product}-planningPoker-finalResult"
-        listenOn="#window-content-planningPoker"/>
-  <icep:notifications
-        name="planningPokerWindow"
-        callback="jQuery.icescrum.planningpoker.notifyStorySelected(${params.product});"
-        group="${params.product}-planningPoker-selection-story"
-        listenOn="#window-content-planningPoker"/>
-  <icep:notifications
-        name="planningPokerWindow"
-        callback="jQuery.icescrum.planningpoker.startVote(${me.id});"
-        group="${params.product}-planningPoker-beginningOfCountDown"
-        listenOn="#window-content-planningPoker"/>
-  <icep:notifications
-        name="planningPokerWindow"
-        reload="[update:'#window-content-planningPoker',controller:'planningPoker',action:'display',params:[product:params.product]]"
-        group="${params.product}-planningPoker-voteAccepted"
-        listenOn="#window-content-planningPoker"/>
-  <icep:notifications
-        name="planningPokerWindow"
-        callback="jQuery.icescrum.planningpoker.endOfCountDown(${me.id});"
-        group="${params.product}-planningPoker-endOfCountDown"
-        listenOn="#window-content-planningPoker"/>
-  <icep:notifications
-        name="planningPokerWindow"
-        callback="jQuery.icescrum.planningpoker.displayStatusOthers(${me.id});"
-        group="${params.product}-planningPoker-displayStatusOthers"
-        listenOn="#window-content-planningPoker"/>
-   <icep:notifications
-        name="planningPokerWindow"
-        callback="jQuery.icescrum.planningpoker.revote();"
-        group="${params.product}-planningPoker-revote"
-        listenOn="#window-content-planningPoker"/>
 </jq:jquery>
