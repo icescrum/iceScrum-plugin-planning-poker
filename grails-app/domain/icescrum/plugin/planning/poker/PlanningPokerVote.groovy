@@ -30,7 +30,7 @@ package icescrum.plugin.planning.poker
 
 import org.icescrum.core.domain.User
 
-class PlanningPokerVote {
+class PlanningPokerVote implements Serializable {
 
     static belongsTo = [user:User, session:PlanningPokerSession]
     int voteValue
