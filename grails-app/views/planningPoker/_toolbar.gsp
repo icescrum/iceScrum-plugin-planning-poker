@@ -1,5 +1,5 @@
 <g:if test="${request.inProduct}">
-    <li class="navigation-item separator"></li>
+    <li class="navigation-item"></li>
     <li class="navigation-item">
         <a class="tool-button button-n"
            href="#planningPoker"
